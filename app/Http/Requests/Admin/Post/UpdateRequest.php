@@ -31,7 +31,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|string',
             'slug' => 'sometimes|unique:posts,slug,' . $this->id .'|string',
-            'publish' => 'sometimes|boolean',
+            'publish' => 'boolean',
             'preview_text' => 'sometimes|string',
             'detail_text' => 'sometimes|string',
         ];

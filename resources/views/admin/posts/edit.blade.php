@@ -54,7 +54,7 @@
     @endslot
 @endcomponent
 @component('codersstudio.crud::fields.checkbox', [
-	'required' => 1
+	'required' => 0
 ])
     @slot('label')
         @lang('crud.post.columns.publish')
@@ -82,7 +82,7 @@
      	@lang('crud.post.columns.preview_text')
     @endslot
 @endcomponent
-@component('codersstudio.crud::fields.textarea', [
+@component('codersstudio.crud::fields.editor', [
 	'required' => 1
 ])
     @slot('label')

@@ -19,7 +19,7 @@ class CreateTablePosts extends Migration
             $table->string('slug', 50)->unique();
             $table->boolean('publish');
             $table->string('preview_text');
-            $table->text('detail_text');
+            $table->longText('detail_text');
             $table->timestamps();
         });
     }

@@ -42,7 +42,8 @@ class PostController extends Controller
             'publish',
             'preview_text',
             'detail_text',
-            
+            'created_at'
+
         ];
         $model = new Post();
         $data = $model->search($fields, $request->all());
@@ -56,7 +57,8 @@ class PostController extends Controller
                 'publish' => $request->get('publish'),
                 'preview_text' => $request->get('preview_text'),
                 'detail_text' => $request->get('detail_text'),
-                
+                'created_at' => $request->get('created_at')
+
             ]
         ];
         if ($request->ajax()) {

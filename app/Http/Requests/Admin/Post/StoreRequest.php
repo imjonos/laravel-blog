@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'slug' => 'required|unique:posts,slug|string',
-            'publish' => 'required|boolean',
+            'publish' => 'boolean',
             'preview_text' => 'required|string',
             'detail_text' => 'required|string',
         ];

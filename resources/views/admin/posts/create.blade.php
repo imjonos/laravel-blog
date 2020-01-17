@@ -80,7 +80,7 @@
      	@lang('crud.post.columns.preview_text')
     @endslot
 @endcomponent
-@component('codersstudio.crud::fields.textarea', [
+@component('codersstudio.crud::fields.editor', [
 	'required' => 1
 ])
     @slot('label')
