@@ -17,8 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::pattern('post', '[0-9]+');
+Route::get('/posts', 'PostController@index')->name('site.posts.index');
+Route::get('/posts/{post}', 'PostController@show')->name('site.posts.show');
 Route::resource('admin/posts', 'Admin\PostController');
 Route::post('admin/posts/massdestroy', 'Admin\PostController@massDestroy')->name('posts.massdestroy');
 Route::put('admin/posts/{post}/toggleboolean', 'Admin\PostController@toggleBoolean')->name('posts.toggleboolean');
