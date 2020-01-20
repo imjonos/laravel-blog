@@ -30,6 +30,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string',
+            'category_id' => 'required|numeric',
             'slug' => 'sometimes|unique:posts,slug,' . $this->id .'|string',
             'publish' => 'boolean',
             'preview_text' => 'sometimes|string',

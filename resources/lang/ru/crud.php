@@ -59,6 +59,18 @@ return [
             'updated_at' => 'Updated at'
          ]
     ],
+    'category' => [
+        'title' => 'Categories',
+         'columns' => [
+            'id' => 'Id',
+            'name' => 'Name',
+            'slug' => 'Slug',
+            'publish' => 'Publish',
+            'created_at' => 'Created at',
+            'updated_at' => 'Updated at'
+         ]
+    ],
 /** Section for new languages **/
+
 
 ];

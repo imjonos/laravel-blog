@@ -26,3 +26,7 @@ Route::get('/posts/{post}', 'PostController@show')->name('site.posts.show');
 Route::resource('admin/posts', 'Admin\PostController');
 Route::post('admin/posts/massdestroy', 'Admin\PostController@massDestroy')->name('posts.massdestroy');
 Route::put('admin/posts/{post}/toggleboolean', 'Admin\PostController@toggleBoolean')->name('posts.toggleboolean');
+Route::pattern('category', '[0-9]+');
+Route::resource('admin/categories', 'Admin\CategoryController');
+Route::post('admin/categories/massdestroy', 'Admin\CategoryController@massDestroy')->name('categories.massdestroy');
+Route::put('admin/categories/{category}/toggleboolean', 'Admin\CategoryController@toggleBoolean')->name('categories.toggleboolean');

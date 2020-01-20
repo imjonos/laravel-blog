@@ -19,6 +19,7 @@ use App\Http\Requests\Admin\Post\{
     MassDestroyRequest,
     ToggleBooleanRequest
 };
+use CodersStudio\CRUD\Traits\FileUploadable;
 use App\Post;
 
 
@@ -28,6 +29,7 @@ use App\Post;
  */
 class PostController extends Controller
 {
+    use FileUploadable;
     /**
      * List of records
      * @param IndexRequest $request
@@ -42,11 +44,12 @@ class PostController extends Controller
             'publish',
             'preview_text',
             'detail_text',
-            'created_at'
+            'created_at',
+            'category_id'
 
         ];
         $model = new Post();
-        $data = $model->search($fields, $request->all());
+        $data = $model->search($fields, $request->all())->with("category");
         $data = $data->paginate($request->get('per_page', 10));
         $response = [
             'data' => $data,
@@ -57,7 +60,8 @@ class PostController extends Controller
                 'publish' => $request->get('publish'),
                 'preview_text' => $request->get('preview_text'),
                 'detail_text' => $request->get('detail_text'),
-                'created_at' => $request->get('created_at')
+                'created_at' => $request->get('created_at'),
+                'category_id' => $request->get('category_id')
 
             ]
         ];
@@ -85,6 +89,7 @@ class PostController extends Controller
     public function store(StoreRequest $request)
     {
         $newItem = Post::create($request->all());
+        $this->upload($request, $newItem);
         if ($request->ajax()) {
             return response()->json(['data' => $newItem], 201);
         }
@@ -126,7 +131,9 @@ class PostController extends Controller
      */
     public function update(UpdateRequest $request, Post $post)
     {
+        $this->upload($request, $post);
         $post->update($request->all());
+
         if ($request->ajax()) {
             return response()->json(['data' => $post]);
         }

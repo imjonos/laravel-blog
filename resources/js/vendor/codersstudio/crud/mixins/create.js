@@ -21,7 +21,6 @@ export default {
                 return;
             }
             this.errors.clear();
-            this.getMedia();
             this.loading = true;
             axios.post(this.link, this.form)
             .then(response => {
@@ -46,17 +45,7 @@ export default {
             .finally(() => {
                 this.loading = false;
             });
-        },
-        getMedia() {
-            _.forEach(this.$refs, (item, index) => {
-                if (item.$refs.dropzone) {
-                    this.$set(this.mediaCollections, index, item.$refs.dropzone.getAcceptedFiles());
-                }
-            });
-            this.form = Object.assign({
-                'mediaCollections': this.mediaCollections
-            }, this.form);
-        },
-        
+        }
+
     }
 }

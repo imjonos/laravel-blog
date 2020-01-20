@@ -1,3 +1,6 @@
+require('../../../components/admin/categories/create.js');
+require('../../../components/admin/categories/edit.js');
+require('../../../components/admin/categories/index.js');
 require('../../../components/admin/posts/create.js');
 require('../../../components/admin/posts/edit.js');
 require('../../../components/admin/posts/index.js');

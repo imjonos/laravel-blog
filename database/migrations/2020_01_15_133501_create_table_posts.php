@@ -20,6 +20,8 @@ class CreateTablePosts extends Migration
             $table->boolean('publish');
             $table->string('preview_text');
             $table->longText('detail_text');
+            $table->bigInteger('category_id')->index();
+            $table->bigInteger('user_id')->index();
             $table->timestamps();
         });
     }

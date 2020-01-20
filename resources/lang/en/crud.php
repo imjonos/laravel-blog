@@ -44,7 +44,9 @@ return [
         'login' => 'Login',
         'logout' => 'Logout',
         'import' => 'Import',
-        'export' => 'Export'
+        'export' => 'Export',
+        'files'  => 'Files',
+        'files_placeholder' => 'Drag and drop to upload file'
     ],
     'post' => [
         'title' => 'Posts',
@@ -52,6 +54,7 @@ return [
             'id' => 'Id',
             'name' => 'Name',
             'slug' => 'Slug',
+            'category_id' => 'Category',
             'publish' => 'Publish',
             'preview_text' => 'Preview text',
             'detail_text' => 'Detail text',
@@ -59,6 +62,18 @@ return [
             'updated_at' => 'Updated at'
          ]
     ],
+    'category' => [
+        'title' => 'Categories',
+         'columns' => [
+            'id' => 'Id',
+            'name' => 'Name',
+            'slug' => 'Slug',
+            'publish' => 'Publish',
+            'created_at' => 'Created at',
+            'updated_at' => 'Updated at'
+         ]
+    ],
 /** Section for new languages **/
+
 
 ];

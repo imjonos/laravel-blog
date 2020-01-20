@@ -61,6 +61,16 @@
                 @endslot
             @endcomponent
             @component('codersstudio.crud::th', [
+               'order' => true
+           ])
+                @slot('columnName')
+                    category_id
+                @endslot
+                @slot('title')
+                    @lang('crud.post.columns.category_id')
+                @endslot
+            @endcomponent
+            @component('codersstudio.crud::th', [
                 'order' => true
             ])
                 @slot('columnName')
@@ -102,6 +112,9 @@
                            :id="'checkpublish' + item.id" @change="toggleBoolean(item, 'publish')">
                     <label class="custom-control-label" :for="'checkpublish' + item.id"></label>
                 </div>
+            </td>
+            <td>
+                @{{ item.category.name }}
             </td>
             <td>
                 @{{ item.created_at }}

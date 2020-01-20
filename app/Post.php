@@ -9,10 +9,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use CodersStudio\CRUD\Traits\Crudable;
+use CodersStudio\CRUD\Traits\Multitenantable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use Crudable;
+    use Crudable, Multitenantable, HasMediaTrait;
 
    /**
      * Columns available for sorting
@@ -25,6 +28,7 @@ class Post extends Model
                             'publish',
                             'preview_text',
                             'detail_text',
+                            'category_id'
                             ];
 
     protected $fillable = [
@@ -33,14 +37,35 @@ class Post extends Model
                             'publish',
                             'preview_text',
                             'detail_text',
+                            'category_id'
                             ];
 
-    protected $hidden = [
-                            ];
+    protected $hidden = [];
 
-    
+    protected $appends = ['media_collection'];
 
-    
+    /**
+     * Return files
+     * @return Array
+     */
+    public function getMediaCollectionAttribute():array
+    {
+        $this->getMedia();
+        return [
+            "name" => "PostMediaCollection",
+            "files" => $this->media,
+            "removedFiles" => []
+        ];
+    }
+
+    /**
+     * Category
+     */
+    public function category()
+    {
+        return $this->belongsTo("App\Category");
+    }
+
     /**
      * Scope for filtering by id
      * @param $query
@@ -62,6 +87,17 @@ class Post extends Model
     public function scopeOfName($query,$value)
     {
         return $query->where('name','like','%'.$value.'%');
+    }
+
+    /**
+     * Scope a query to only include published posts.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublish($query)
+    {
+        return $query->where('publish', 1);
     }
 
 

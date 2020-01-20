@@ -11,5 +11,26 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig({
+    devtool: 'eval',
+    mode: 'development',
+    devServer: {
+        watchOptions: {
+            exclude: [/bower_components/, /node_modules/, /docker/]
+        }
+    }
+});
+
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .sourceMaps()
+    .webpackConfig({devtool: 'source-map'});
+// .browserSync({
+//     proxy: 'localhost:80'
+// })
+
+if (mix.inProduction()) {
+    mix.version();
+}
+
+
