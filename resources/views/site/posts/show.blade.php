@@ -98,9 +98,6 @@
         </div>
 
     </div>
-
-
-
-
     <!-- /.row -->
+    @include("site.partials.sidebar", ["categories" => $categories]);
 @endsection

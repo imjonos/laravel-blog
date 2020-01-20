@@ -109,9 +109,19 @@ class Post extends Model implements HasMedia
      */
     public function scopeOfSlug($query,$value)
     {
-        return $query->where('slug','like','%'.$value.'%');
+        return $query->where('slug','=', $value);
     }
 
+    /**
+     * Scope for filtering by category
+     * @param $query
+     * @param $value
+     * @return mixed
+     */
+    public function scopeOfCategoryId($query, $value)
+    {
+        return $query->where('category_id','=', $value);
+    }
 
     /**
      * Scope for filtering by publish
