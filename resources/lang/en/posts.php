@@ -7,10 +7,10 @@
 
 return [
     'index' => [
-        'title' => 'Page Heading',
-        'secondTitle' => 'Second Title',
+        'title' => 'Blog',
+        'secondTitle' => 'Any text',
         'more' => 'Read More'
-
     ],
-
+    'search' => 'Search',
+    'categories' => 'Categories'
 ];

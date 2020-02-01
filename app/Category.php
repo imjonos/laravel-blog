@@ -53,6 +53,20 @@ class Category extends Model implements HasMedia
     }
 
     /**
+     * Get image path
+     * @return string
+     */
+    public function getImageAttribute():string
+    {
+        $image = $this->media()->first();
+        $path = "http://placehold.it/900x300";
+        if($image){
+            $path = '/storage/'.$this->id.'/'.$image->path;
+        }
+        return $path;
+    }
+
+    /**
      * Scope for filtering by id
      * @param $query
      * @param $value

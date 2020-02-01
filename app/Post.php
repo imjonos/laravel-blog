@@ -17,28 +17,28 @@ class Post extends Model implements HasMedia
 {
     use Crudable, Multitenantable, HasMediaTrait;
 
-   /**
+    /**
      * Columns available for sorting
      * @var array
      */
     protected $sortable = [
-                            'id',
-                            'name',
-                            'slug',
-                            'publish',
-                            'preview_text',
-                            'detail_text',
-                            'category_id'
-                            ];
+        'id',
+        'name',
+        'slug',
+        'publish',
+        'preview_text',
+        'detail_text',
+        'category_id'
+    ];
 
     protected $fillable = [
-                            'name',
-                            'slug',
-                            'publish',
-                            'preview_text',
-                            'detail_text',
-                            'category_id'
-                            ];
+        'name',
+        'slug',
+        'publish',
+        'preview_text',
+        'detail_text',
+        'category_id'
+    ];
 
     protected $hidden = [];
 
@@ -48,7 +48,7 @@ class Post extends Model implements HasMedia
      * Return files
      * @return Array
      */
-    public function getMediaCollectionAttribute():array
+    public function getMediaCollectionAttribute(): array
     {
         $this->getMedia();
         return [
@@ -56,6 +56,20 @@ class Post extends Model implements HasMedia
             "files" => $this->media,
             "removedFiles" => []
         ];
+    }
+
+    /**
+     * Get image path
+     * @return string
+     */
+    public function getImageAttribute():string
+    {
+        $image = $this->media()->first();
+        $path = "http://placehold.it/900x300";
+        if(isset($image->path)){
+            $path = '/storage/'.$this->id.'/'.$image->path;
+        }
+        return $path;
     }
 
     /**
@@ -72,9 +86,9 @@ class Post extends Model implements HasMedia
      * @param $value
      * @return mixed
      */
-    public function scopeOfId($query,$value)
+    public function scopeOfId($query, $value)
     {
-        return $query->where('id','=',$value);
+        return $query->where('id', '=', $value);
     }
 
 
@@ -84,15 +98,15 @@ class Post extends Model implements HasMedia
      * @param $value
      * @return mixed
      */
-    public function scopeOfName($query,$value)
+    public function scopeOfName($query, $value)
     {
-        return $query->where('name','like','%'.$value.'%');
+        return $query->where('name', 'like', '%' . $value . '%');
     }
 
     /**
      * Scope a query to only include published posts.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopePublish($query)
@@ -107,9 +121,9 @@ class Post extends Model implements HasMedia
      * @param $value
      * @return mixed
      */
-    public function scopeOfSlug($query,$value)
+    public function scopeOfSlug($query, $value)
     {
-        return $query->where('slug','=', $value);
+        return $query->where('slug', '=', $value);
     }
 
     /**
@@ -120,7 +134,7 @@ class Post extends Model implements HasMedia
      */
     public function scopeOfCategoryId($query, $value)
     {
-        return $query->where('category_id','=', $value);
+        return $query->where('category_id', '=', $value);
     }
 
     /**
@@ -129,9 +143,9 @@ class Post extends Model implements HasMedia
      * @param $value
      * @return mixed
      */
-    public function scopeOfPublish($query,$value)
+    public function scopeOfPublish($query, $value)
     {
-        return $query->where('publish','=',$value);
+        return $query->where('publish', '=', $value);
     }
 
 
@@ -141,9 +155,9 @@ class Post extends Model implements HasMedia
      * @param $value
      * @return mixed
      */
-    public function scopeOfPreviewText($query,$value)
+    public function scopeOfPreviewText($query, $value)
     {
-        return $query->where('preview_text','like','%'.$value.'%');
+        return $query->where('preview_text', 'like', '%' . $value . '%');
     }
 
 
@@ -153,11 +167,10 @@ class Post extends Model implements HasMedia
      * @param $value
      * @return mixed
      */
-    public function scopeOfDetailText($query,$value)
+    public function scopeOfDetailText($query, $value)
     {
-        return $query->where('detail_text','like','%'.$value.'%');
+        return $query->where('detail_text', 'like', '%' . $value . '%');
     }
-
 
 
 }
