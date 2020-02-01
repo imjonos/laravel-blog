@@ -26,3 +26,7 @@ Route::pattern('category', '[0-9]+');
 Route::resource('admin/categories', 'Admin\CategoryController');
 Route::post('admin/categories/massdestroy', 'Admin\CategoryController@massDestroy')->name('categories.massdestroy');
 Route::put('admin/categories/{category}/toggleboolean', 'Admin\CategoryController@toggleBoolean')->name('categories.toggleboolean');
+Route::pattern('comment', '[0-9]+');
+Route::resource('admin/comments', 'Admin\CommentController');
+Route::post('admin/comments/massdestroy', 'Admin\CommentController@massDestroy')->name('comments.massdestroy');
+Route::put('admin/comments/{comment}/toggleboolean', 'Admin\CommentController@toggleBoolean')->name('comments.toggleboolean');

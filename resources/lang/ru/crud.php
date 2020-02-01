@@ -70,7 +70,20 @@ return [
             'updated_at' => 'Updated at'
          ]
     ],
+    'comment' => [
+        'title' => 'Comments',
+         'columns' => [
+            'id' => 'Id',
+            'user_name' => 'User name',
+            'publish' => 'Publish',
+            'comment' => 'Comment',
+            'post_id' => 'Post id',
+            'created_at' => 'Created at',
+            'updated_at' => 'Updated at'
+         ]
+    ],
 /** Section for new languages **/
+
 
 
 ];

@@ -12,5 +12,7 @@ return [
         'more' => 'Read More'
     ],
     'search' => 'Search',
-    'categories' => 'Categories'
+    'categories' => 'Categories',
+    'author' => 'Author',
+    'posted_at' => 'Posted at'
 ];
