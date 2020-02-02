@@ -8,10 +8,16 @@
         <div class="card-body">
             <div class="input-group">
                 <form action="{{ route("site.posts.index") }} " method="GET">
-                    <input type="text" name="search" value="{{ request()->get('search', '') }}" class="form-control" placeholder="{{ trans('posts.search' )}}">
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-secondary" type="button">{{ trans('posts.search')}}</button>
-                    </span>
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="text" name="search" value="{{ request()->get('search', '') }}" class="form-control" placeholder="{{ trans('posts.search' )}}">
+                        </div>
+                        <div class="col-4">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-secondary" type="button">{{ trans('posts.find')}}</button>
+                            </span>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

@@ -11,6 +11,7 @@ return [
         'secondTitle' => 'Any text',
         'more' => 'Read More'
     ],
+    'find' => 'Find',
     'search' => 'Search',
     'categories' => 'Categories',
     'author' => 'Author',

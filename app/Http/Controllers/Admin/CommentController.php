@@ -42,11 +42,11 @@ class CommentController extends Controller
             'publish',
             'comment',
             'post_id',
-            
+
         ];
         $model = new Comment();
         $data = $model->search($fields, $request->all());
-        $data = $data->paginate($request->get('per_page', 10));
+        $data = $data->with('post')->paginate($request->get('per_page', 10));
         $response = [
             'data' => $data,
             'selected' => [
@@ -55,7 +55,7 @@ class CommentController extends Controller
                 'publish' => $request->get('publish'),
                 'comment' => $request->get('comment'),
                 'post_id' => $request->get('post_id'),
-                
+
             ]
         ];
         if ($request->ajax()) {

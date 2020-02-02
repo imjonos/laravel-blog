@@ -85,7 +85,7 @@
 					@{{ item.comment }}
 				</td>
 				<td>
-					@{{ item.post_id }}
+					@{{ item.post.name }}
 				</td>
 
                 <td class="nowrap">

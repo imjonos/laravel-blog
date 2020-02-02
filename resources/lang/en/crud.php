@@ -80,7 +80,7 @@ return [
             'user_name' => 'User name',
             'publish' => 'Publish',
             'comment' => 'Comment',
-            'post_id' => 'Post id',
+            'post_id' => 'Post',
             'created_at' => 'Created at',
             'updated_at' => 'Updated at'
          ]
