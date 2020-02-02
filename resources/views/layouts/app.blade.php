@@ -22,6 +22,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.css" />
 
     </head>
 
@@ -57,7 +58,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-5 bg-secondary">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Coders Studio 2020</p>
         </div>
