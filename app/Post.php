@@ -10,6 +10,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use CodersStudio\CRUD\Traits\Crudable;
 use CodersStudio\CRUD\Traits\Multitenantable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
@@ -74,10 +76,22 @@ class Post extends Model implements HasMedia
 
     /**
      * Category
+     *
+     * @return belongsTo
      */
     public function category()
     {
-        return $this->belongsTo("App\Category");
+        return $this->belongsTo('App\Category');
+    }
+
+    /**
+     * Related comments
+     *
+     * @return HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
     }
 
     /**

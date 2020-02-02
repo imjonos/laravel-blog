@@ -17,6 +17,8 @@ $factory->define(Post::class, function (Faker $faker) {
         'publish' => $faker->boolean(),
         'preview_text' => $faker->word,
         'detail_text' => $faker->word,
-        
+        'category_id' => $faker->numberBetween(1,4),
+        'user_id' => $faker->numberBetween(1,4)
+
     ];
 });

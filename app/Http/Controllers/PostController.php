@@ -7,7 +7,6 @@ use App\Category;
 use App\Http\Requests\Site\Post\IndexRequest;
 use App\Http\Requests\Site\Post\ShowRequest;
 use App\Post;
-use PhpParser\Node\Scalar\String_;
 
 class PostController extends Controller
 {
@@ -30,7 +29,7 @@ class PostController extends Controller
 
 
     /**
-     * Show posr
+     * Show post
      *
      * @param ShowRequest $request
      * @param string $slug
@@ -42,7 +41,7 @@ class PostController extends Controller
         $categories = Category::all();
         return view('site.posts.show', [
             'post' => $post,
-            "categories" => $categories
+            'categories' => $categories
         ]);
     }
 }

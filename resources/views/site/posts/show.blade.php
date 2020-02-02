@@ -29,28 +29,31 @@
         <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
-                <form>
+                <form method="post" action="{{route('site.comments.store', ['slug'=> $post->slug])}}">
                     <div class="form-group">
                         Name:
-                        <input type="text" class="form-control"/>
+                        <input name="user_name" type="text" class="form-control"/>
                     </div>
                     <div class="form-group">
                         Comment:
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea name="comment" class="form-control" rows="3"></textarea>
                     </div>
+                    @csrf
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
 
         <!-- Single Comment -->
+        @foreach($post->comments AS $comment)
         <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <h5 class="mt-0">{{ $comment->user_name }}</h5>
+                {{ $comment->comment }}
             </div>
         </div>
+        @endforeach
 
         <!-- Comment with nested comments -->
        {{-- <div class="media mb-4">
