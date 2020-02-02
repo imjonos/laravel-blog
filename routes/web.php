@@ -12,8 +12,8 @@
 */
 
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes(['register' => false]);
+Route::get('logout', 'Auth\LoginController@logout');
 Route::pattern('post', '[0-9]+');
 Route::pattern('slug', '[A-z0-9]+');
 Route::get('/', 'PostController@index')->name('site.posts.index');
