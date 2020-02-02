@@ -33,10 +33,16 @@
                     <div class="form-group">
                         Name:
                         <input name="user_name" type="text" class="form-control"/>
+                        @if($errors->has('user_name'))
+                            <div class="text-danger">{{ $errors->first('user_name') }}</div>
+                        @endif
                     </div>
                     <div class="form-group">
                         Comment:
                         <textarea name="comment" class="form-control" rows="3"></textarea>
+                        @if($errors->has('comment'))
+                            <div class="text-danger">{{ $errors->first('comment') }}</div>
+                        @endif
                     </div>
                     @csrf
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -45,12 +51,15 @@
         </div>
 
         <!-- Single Comment -->
-        @foreach($post->comments AS $comment)
+        @foreach($post->comments()->orderBy('id','desc')->get() AS $comment)
         <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
                 <h5 class="mt-0">{{ $comment->user_name }}</h5>
                 {{ $comment->comment }}
+                <br>
+                {{ $comment->created_at }}
+
             </div>
         </div>
         @endforeach

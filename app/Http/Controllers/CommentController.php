@@ -22,7 +22,7 @@ class CommentController extends Controller
         $data['comment'] = $request->get('comment');
         $data['post_id'] = $post->id;
 
-        $post->comments()->insert($data);
+        $post->comments()->create($data);
         return response()->redirectToRoute('site.posts.show', ['slug' => $post->slug]);
     }
 }
