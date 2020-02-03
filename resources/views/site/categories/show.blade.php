@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <br>
             <h1 class="my-4">@lang("posts.index.title")
-                <small>@lang("posts.index.secondTitle")</small>
+                <small>{{ $category->name }}</small>
             </h1>
 
         @foreach($posts AS $post)
