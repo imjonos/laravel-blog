@@ -14900,4 +14900,9 @@ h3 {
 .pointer {
   cursor: pointer !important;
 }
+
+.ql-video {
+  width: 100% !important;
+  height: 389px !important;
+}
 /*# sourceMappingURL=app.css.map*/

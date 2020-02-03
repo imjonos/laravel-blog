@@ -60,8 +60,8 @@ class Category extends Model implements HasMedia
     {
         $image = $this->media()->first();
         $path = "http://placehold.it/900x300";
-        if($image){
-            $path = '/storage/'.$this->id.'/'.$image->path;
+        if(isset($image->file_name)){
+            $path = '/storage/'.$this->id.'/'.$image->file_name;
         }
         return $path;
     }
