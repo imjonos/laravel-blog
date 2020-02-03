@@ -15,7 +15,7 @@
 Auth::routes(['register' => false]);
 Route::get('logout', 'Auth\LoginController@logout');
 Route::pattern('post', '[0-9]+');
-Route::pattern('slug', '[A-z0-9]+');
+Route::pattern('slug', '[A-z0-9_-]+');
 Route::get('/', 'PostController@index')->name('site.posts.index');
 Route::get('/posts/{slug}', 'PostController@show')->name('site.posts.show');
 Route::get('/categories/{slug}', 'CategoryController@show')->name('site.categories.show');
