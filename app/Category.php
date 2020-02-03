@@ -58,10 +58,10 @@ class Category extends Model implements HasMedia
      */
     public function getImageAttribute():string
     {
-        $image = $this->media()->first();
+        $image = $this->media()->orderBy('id', 'DESC')->first();
         $path = "http://placehold.it/900x300";
         if(isset($image->file_name)){
-            $path = '/storage/'.$this->id.'/'.$image->file_name;
+            $path = '/storage/'.$image->id.'/'.$image->file_name;
         }
         return $path;
     }

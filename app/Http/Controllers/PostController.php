@@ -19,7 +19,7 @@ class PostController extends Controller
     public function index(IndexRequest $request)
     {
         $search = $request->get('search', '');
-        $posts = Post::publish()->ofName($search)->orWhere('detail_text', 'like', "%$search%")->paginate(10);
+        $posts = Post::publish()->ofName($search)->orWhere('detail_text', 'like', "%$search%")->orderBy('id', 'DESC')->paginate(10);
         $categories = Category::all();
         return view('site.posts.index', [
             "posts" => $posts,
@@ -37,7 +37,7 @@ class PostController extends Controller
      */
     public function show(ShowRequest $request, string $slug)
     {
-        $post = Post::ofSlug($slug)->publish()->orderBy('id', 'DESC')->firstOrFail();
+        $post = Post::ofSlug($slug)->publish()->firstOrFail();
         $categories = Category::all();
         return view('site.posts.show', [
             'post' => $post,
