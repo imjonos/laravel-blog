@@ -11,9 +11,16 @@ return [
         'secondTitle' => 'Any text',
         'more' => 'Read More'
     ],
+    'comments' => [
+        'title' => 'Leave a Comment',
+        'name' => 'Name',
+        'comment' => 'Comment',
+        'send' => 'Send'
+    ],
     'find' => 'Find',
     'search' => 'Search',
     'categories' => 'Categories',
     'author' => 'Author',
-    'posted_at' => 'Posted at'
+    'posted_at' => 'Posted at',
+    'links' => 'Links'
 ];

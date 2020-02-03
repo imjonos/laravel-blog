@@ -27,25 +27,25 @@
         <hr>
         <!-- Comments Form -->
         <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
+            <h5 class="card-header">{{ trans('posts.comments.title') }}:</h5>
             <div class="card-body">
                 <form method="post" action="{{route('site.comments.store', ['slug'=> $post->slug])}}">
                     <div class="form-group">
-                        Name:
+                        {{ trans('posts.comments.name') }}:
                         <input name="user_name" type="text" class="form-control"/>
                         @if($errors->has('user_name'))
                             <div class="text-danger">{{ $errors->first('user_name') }}</div>
                         @endif
                     </div>
                     <div class="form-group">
-                        Comment:
+                        {{ trans('posts.comments.comment') }}:
                         <textarea name="comment" class="form-control" rows="3"></textarea>
                         @if($errors->has('comment'))
                             <div class="text-danger">{{ $errors->first('comment') }}</div>
                         @endif
                     </div>
                     @csrf
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">{{ trans('posts.comments.send') }}</button>
                 </form>
             </div>
         </div>
