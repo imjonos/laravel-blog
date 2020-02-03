@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function show(string $slug)
     {
         $category = Category::ofSlug($slug)->publish()->firstOrFail();
-        $posts = Post::publish()->ofCategoryId($category->id)->paginate(10);
+        $posts = Post::publish()->ofCategoryId($category->id)->orderBy('id', 'DESC')->paginate(10);
         $categories = Category::all();
         return view('site.categories.show', [
             'posts' => $posts,

@@ -37,7 +37,7 @@ class PostController extends Controller
      */
     public function show(ShowRequest $request, string $slug)
     {
-        $post = Post::ofSlug($slug)->publish()->firstOrFail();
+        $post = Post::ofSlug($slug)->publish()->orderBy('id', 'DESC')->firstOrFail();
         $categories = Category::all();
         return view('site.posts.show', [
             'post' => $post,
