@@ -14901,7 +14901,7 @@ h3 {
   cursor: pointer !important;
 }
 
-.ql-video {
+iframe.ql-video {
   width: 100% !important;
   height: 389px !important;
 }

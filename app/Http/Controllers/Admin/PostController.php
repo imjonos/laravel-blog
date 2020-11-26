@@ -49,8 +49,9 @@ class PostController extends Controller
 
         ];
         $model = new Post();
-        $data = $model->search($fields, $request->all())->with("category");
-        $data = $data->paginate($request->get('per_page', 10));
+        $data = $model->ofSearch($fields, $request->all())
+            ->with("category")
+            ->paginate($request->get('per_page', 10));
         $response = [
             'data' => $data,
             'selected' => [

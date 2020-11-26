@@ -40,11 +40,11 @@ class CategoryController extends Controller
             'name',
             'slug',
             'publish',
-            
+
         ];
         $model = new Category();
-        $data = $model->search($fields, $request->all());
-        $data = $data->paginate($request->get('per_page', 10));
+        $data = $model->ofSearch($fields, $request->all())
+            ->paginate($request->get('per_page', 10));
         $response = [
             'data' => $data,
             'selected' => [
@@ -52,7 +52,7 @@ class CategoryController extends Controller
                 'name' => $request->get('name'),
                 'slug' => $request->get('slug'),
                 'publish' => $request->get('publish'),
-                
+
             ]
         ];
         if ($request->ajax()) {

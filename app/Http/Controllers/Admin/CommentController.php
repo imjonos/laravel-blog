@@ -45,8 +45,9 @@ class CommentController extends Controller
 
         ];
         $model = new Comment();
-        $data = $model->search($fields, $request->all());
-        $data = $data->with('post')->paginate($request->get('per_page', 10));
+        $data = $model->ofSearch($fields, $request->all())
+            ->with('post')
+            ->paginate($request->get('per_page', 10));
         $response = [
             'data' => $data,
             'selected' => [
