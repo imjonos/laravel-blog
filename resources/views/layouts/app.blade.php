@@ -31,7 +31,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">{{ env('APP_NAME') }}</a>
+            <a class="navbar-brand" href="/">
+                <img width="200" src="https://toprogram.ru/images/logo.png" alt="{{ env('APP_NAME') }}">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -42,7 +44,7 @@
                         <a class="nav-link" href="{{route('site.posts.index')}}">{{trans("layout.menu.home")}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://coders.studio">{{trans("layout.menu.contact")}}</a>
+                        <a class="nav-link" target="_blank" href="https://toprogram.ru">{{trans("layout.menu.contact")}}</a>
                     </li>
                 </ul>
             </div>
@@ -60,7 +62,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-secondary">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Coders Studio 2020</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Евгений Носенко 2020</p>
         </div>
         <!-- /.container -->
     </footer>

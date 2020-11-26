@@ -53,7 +53,7 @@
                     <a href="https://github.com/imjonos" target="_blank"><i class="fa fa-code" aria-hidden="true"></i><span>Github</span></a>&nbsp;&nbsp;&nbsp;
                 </li>
                 <li class="nav-item">
-                    <a href="https://blog.coders.studio" target="_blank"><i class="fa fa-terminal" aria-hidden="true" ></i><span>Blog</span></a>&nbsp;&nbsp;&nbsp;
+                    <a href="https://blog.toprogram.ru" target="_blank"><i class="fa fa-terminal" aria-hidden="true" ></i><span>Blog</span></a>&nbsp;&nbsp;&nbsp;
                 </li>
 
             </ul>
