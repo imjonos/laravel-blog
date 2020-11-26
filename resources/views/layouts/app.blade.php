@@ -62,7 +62,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-secondary">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Евгений Носенко 2020</p>
+            <p class="m-0 text-center text-white"> &copy; Мастерская Кода Евгения Носенко 2013 - {{ date('Y') }}</p>
         </div>
         <!-- /.container -->
     </footer>
