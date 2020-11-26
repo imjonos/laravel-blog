@@ -1,8 +1,8 @@
 ## About
 
-Laravel Blog App based on Laravel CRUD Generator https://github.com/imjonos/laravel-crud-generator
+Simple Blog App based on Laravel CRUD Generator https://github.com/imjonos/laravel-crud-generator
 
-Example: https://blog.coders.studio
+Example: https://blog.toprogram.ru
 
 ## License
 
