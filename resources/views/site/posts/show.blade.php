@@ -50,8 +50,8 @@
             </div>
         </div>
 
-        <!-- Single Comment -->
-        @foreach($post->comments()->orderBy('id','desc')->get() AS $comment)
+        <!-- Single Comment Bad style.-->
+        @foreach($post->comments()->ofPublish(1)->orderBy('id','desc')->get() AS $comment)
         <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
