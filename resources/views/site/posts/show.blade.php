@@ -13,7 +13,7 @@
         <!-- Author -->
         <p>
             {{trans('posts.author')}}:
-            <a href="https://coders.studio" target="_blank">Eugeny Nosenko</a>
+            <a href="https://toprogram.ru" target="_blank">Eugeny Nosenko</a>
             <br>
             {{trans('posts.posted_at')}}:
             {{ $post->created_at }}
