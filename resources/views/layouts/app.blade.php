@@ -69,27 +69,6 @@
 
 </div>
 
-<script>
-    window.replainSettings = { id: 'f7e354d1-8d78-4a4d-a45e-b22d9dfbfd54' };
-    (function(u){var s=document.createElement('script');s.type='text/javascript';s.async=true;s.src=u;
-        var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
-    })('https://widget.replain.cc/dist/client.js');
-</script>
-
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-   ym(57423226, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true
-   });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/57423226" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->	
 </body>
 
 </html>
