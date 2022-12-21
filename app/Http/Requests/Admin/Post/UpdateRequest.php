@@ -1,8 +1,8 @@
 <?php
 /**
- * CodersStudio 2019
- * https://coders.studio
- * info@coders.studio
+ * Eugeny Nosenko 2021
+ * https://toprogram.ru
+ * info@toprogram.ru
  */
 
 namespace App\Http\Requests\Admin\Post;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class UpdateRequest
- * @package CodersStudio\CRUD
+ * @package Nos\CRUD
  */
 class UpdateRequest extends FormRequest
 {
@@ -30,11 +30,12 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string',
-            'category_id' => 'required|numeric',
             'slug' => 'sometimes|unique:posts,slug,' . $this->id .'|string',
-            'publish' => 'boolean',
+            'publish' => 'sometimes|boolean',
             'preview_text' => 'sometimes|string',
             'detail_text' => 'sometimes|string',
+            'category_id' => 'sometimes|integer',
+            'user_id' => 'sometimes|integer',
         ];
     }
 }

@@ -1,13 +1,14 @@
 <?php
 /**
-* CodersStudio 2019
-* https://coders.studio
-* info@coders.studio
-*/
+ * Eugeny Nosenko 2022
+ * https://toprogram.ru
+ * info@toprogram.ru
+ */
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use App\Http\Requests\Admin\Comment\{
     IndexRequest,
     CreateRequest,
@@ -19,22 +20,37 @@ use App\Http\Requests\Admin\Comment\{
     MassDestroyRequest,
     ToggleBooleanRequest
 };
-use App\Comment;
-use App\Post;
+use App\Models\Comment;
+use App\Services\CommentService;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
+use App\Models\Post;
 
 
 /**
  * Class CRUDController
- * @package CodersStudio\CRUD\Http\Controllers
+ * @package Nos\CRUD\Http\Controllers
  */
-class CommentController extends Controller
+final class CommentController extends Controller
 {
+    protected CommentService $commentService;
+
+    public function __construct(CommentService $commentService)
+    {
+        $this->commentService = $commentService;
+    }
+
     /**
      * List of records
      * @param IndexRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return JsonResponse|View
+     * @throws BindingResolutionException
      */
-    public function index(IndexRequest $request)
+    public function index(IndexRequest $request): JsonResponse|View
     {
         $fields = [
             'id',
@@ -42,12 +58,13 @@ class CommentController extends Controller
             'publish',
             'comment',
             'post_id',
-
+            
         ];
-        $model = new Comment();
-        $data = $model->ofSearch($fields, $request->all())
-            ->with('post')
-            ->paginate($request->get('per_page', 10));
+        $with = [
+            'post'
+        ];
+        $limit = $request->get('per_page', 10);
+        $data = $this->commentService->search($request->all(), $fields, $with, $limit);
         $response = [
             'data' => $data,
             'selected' => [
@@ -56,21 +73,22 @@ class CommentController extends Controller
                 'publish' => $request->get('publish'),
                 'comment' => $request->get('comment'),
                 'post_id' => $request->get('post_id'),
-
+                
             ]
         ];
         if ($request->ajax()) {
             return response()->json($response);
         }
+
         return view('admin.comments.index', $response);
     }
 
     /**
      * Create form
      * @param CreateRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function create(CreateRequest $request)
+    public function create(CreateRequest $request): Factory|View
     {
         return view('admin.comments.create');
     }
@@ -78,24 +96,26 @@ class CommentController extends Controller
     /**
      * Store row
      * @param StoreRequest $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): JsonResponse|RedirectResponse|Redirector
     {
-        $newItem = Comment::create($request->all());
+        $newItem = $this->commentService->create($request->validated());
         if ($request->ajax()) {
             return response()->json(['data' => $newItem], 201);
         }
-        return redirect(route('{{pluralName}}.index'));
+
+        return redirect(route('admin.comments.index'));
     }
 
     /**
      * Show row
      * @param ShowRequest $request
      * @param Comment $comment
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function show(ShowRequest $request, Comment $comment)
+    public function show(ShowRequest $request, Comment $comment): Factory|View
     {
         return view('admin.comments.show', [
             'data' => $comment
@@ -106,9 +126,9 @@ class CommentController extends Controller
      * Edit form
      * @param EditRequest $request
      * @param Comment $comment
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function edit(EditRequest $request, Comment $comment)
+    public function edit(EditRequest $request, Comment $comment): Factory|View
     {
         return view('admin.comments.edit', [
             'data' => $comment
@@ -120,63 +140,71 @@ class CommentController extends Controller
      * Update row
      * @param UpdateRequest $request
      * @param Comment $comment
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function update(UpdateRequest $request, Comment $comment)
+    public function update(UpdateRequest $request, Comment $comment): JsonResponse|RedirectResponse|Redirector
     {
-        $comment->update($request->all());
+        $this->commentService->update($comment->id, $request->validated());
         if ($request->ajax()) {
             return response()->json(['data' => $comment]);
         }
-        return redirect('/admin.comments');
+
+        return redirect(route('admin.comments.index'));
     }
 
     /**
      * Destroy row
      * @param DestroyRequest $request
      * @param Comment $comment
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Exception
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function destroy(DestroyRequest $request, Comment $comment)
+    public function destroy(DestroyRequest $request, Comment $comment): JsonResponse|RedirectResponse|Redirector
     {
-        $comment->delete();
+        $this->commentService->delete($comment->id);
         if ($request->ajax()) {
             return response()->json([],204);
         }
-        return redirect('/admin.comments');
+
+        return redirect(route('admin.comments.index'));
     }
 
     /**
      * Destroy multiple rows
      * @param MassDestroyRequest $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function massDestroy(MassDestroyRequest $request)
+    public function massDestroy(MassDestroyRequest $request): JsonResponse|RedirectResponse|Redirector
     {
-        $forDestroy = Comment::whereIn('id',$request->get('selected'))->get();
-        foreach ($forDestroy as $item) {
-            $item->delete();
+        foreach ($request->get('selected', []) as $id) {
+            $this->commentService->delete($id);
         }
         if ($request->ajax()) {
             return response()->json([],204);
         }
-        return redirect('/admin.comments');
+
+        return redirect(route('admin.comments.index'));
     }
 
     /**
      * Toggle boolean fields from index table
      * @param ToggleBooleanRequest $request
      * @param Comment $comment
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function toggleBoolean(ToggleBooleanRequest $request, Comment $comment)
+    public function toggleBoolean(ToggleBooleanRequest $request, Comment $comment): JsonResponse
     {
         if (!in_array($request->get('column_name'), $comment->getTableColumns()) ||
-                    $comment->getKeyType( $request->get('column_name')) != 'int') {
+                    $comment->getKeyType( $request->get('column_name')) !== 'int') {
                         abort(400,'Wrong column!');
                     }
-        $comment->update([$request->get('column_name') => $request->get('value')]);
+        $this->commentService->update($comment->id, [
+            $request->get('column_name') => $request->get('value')
+        ]);
+
         return response()->json(['data' => $comment]);
     }
 }

@@ -1,92 +1,66 @@
-<div class="row">
-	<div class="col-md-3">
-	@component('codersstudio.crud::fields.number', [
-	'required' => 0
+@component('nos.crud::filters')
+    @slot('inputs')
+	    @component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.number', [
+	'required' => 0,
+    'label' => trans('crud.comment.columns.id'),
+    'vModel' => 'form.id',
+    'name' => 'id',
+    'placeholder' => trans('crud.comment.columns.id')
 ])
-    @slot('label')
-        @lang('crud.comment.columns.id')
-    @endslot
-    @slot('vModel')
-        form.id
-    @endslot
-    @slot('name')
-        id
-    @endslot
-    @slot('placeholder')
-        @lang('crud.comment.columns.id')
-    @endslot
 @endcomponent
 
-</div>
-<div class="col-md-3">
-	@component('codersstudio.crud::fields.text', [
-	'required' => 0
-])
-    @slot('label')
-        @lang('crud.comment.columns.user_name')
-    @endslot
-    @slot('vModel')
-        form.user_name
-    @endslot
-    @slot('name')
-        user_name
-    @endslot
-    @slot('placeholder')
-     	@lang('crud.comment.columns.user_name')
     @endslot
 @endcomponent
-
-</div>
-<div class="col-md-3">
-	@component('codersstudio.crud::fields.checkbox', [
-	'required' => 0
+@component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.text', [
+	'required' => 0,
+    'label' => trans('crud.comment.columns.user_name'),
+    'vModel' => 'form.user_name',
+    'name' => 'user_name',
+    'placeholder' => trans('crud.comment.columns.user_name')
 ])
-    @slot('label')
-        @lang('crud.comment.columns.publish')
-    @endslot
-    @slot('vModel')
-        form.publish
-    @endslot
-    @slot('name')
-        publish
-    @endslot
 @endcomponent
 
-</div>
-<div class="col-md-3">
-	@component('codersstudio.crud::fields.text', [
-	'required' => 0
-])
-    @slot('label')
-        @lang('crud.comment.columns.comment')
-    @endslot
-    @slot('vModel')
-        form.comment
-    @endslot
-    @slot('name')
-        comment
-    @endslot
-    @slot('placeholder')
-     	@lang('crud.comment.columns.comment')
     @endslot
 @endcomponent
-
-</div>
-<div class="col-md-3">
-	@component('codersstudio.crud::fields.select', [
-    'required' => 0
+@component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.checkbox', [
+	'required' => 0,
+	'label' => trans('crud.comment.columns.publish'),
+	'vModel' => 'form.publish',
+	'name' => 'publish'
 ])
-    @slot('label')
-        @lang('crud.comment.columns.post_id')
+@endcomponent
+
     @endslot
-    @slot('vModel')
-        form.post_id
+@endcomponent
+@component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.text', [
+	'required' => 0,
+    'label' => trans('crud.comment.columns.comment'),
+    'vModel' => 'form.comment',
+    'name' => 'comment',
+    'placeholder' => trans('crud.comment.columns.comment')
+])
+@endcomponent
+
     @endslot
-    @slot('name')
-        post_id
-    @endslot
+@endcomponent
+@component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.select', [
+    'required' => 0,
+    'label' => trans('crud.comment.columns.post_id'),
+    'vModel' => 'form.post_id',
+    'name' => 'post_id'
+])
     @slot('options')
-        @foreach(App\Post::all() as $value)
+        @foreach(App\Models\Post::all() as $value)
             <option value="{{ $value->id }}">
                 {{ $value->name }}
             </option>
@@ -94,6 +68,8 @@
     @endslot
 @endcomponent
 
-</div>
+    @endslot
+@endcomponent
 
-</div>
+   @endslot
+@endcomponent

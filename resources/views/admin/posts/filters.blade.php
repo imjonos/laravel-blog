@@ -1,136 +1,100 @@
-<div class="row">
-    <div class="col-md-3">
-        @component('codersstudio.crud::fields.number', [
-        'required' => 0
-    ])
-            @slot('label')
-                @lang('crud.post.columns.id')
-            @endslot
-            @slot('vModel')
-                form.id
-            @endslot
-            @slot('name')
-                id
-            @endslot
-            @slot('placeholder')
-                @lang('crud.post.columns.id')
+@component('nos.crud::filters')
+    @slot('inputs')
+        @component('nos.crud::filter')
+            @slot('input')
+                @component('nos.crud::fields.number', [
+            'required' => 0,
+            'label' => trans('crud.post.columns.id'),
+            'vModel' => 'form.id',
+            'name' => 'id',
+            'placeholder' => trans('crud.post.columns.id')
+        ])
+                @endcomponent
+
             @endslot
         @endcomponent
+        @component('nos.crud::filter')
+            @slot('input')
+                @component('nos.crud::fields.text', [
+            'required' => 0,
+            'label' => trans('crud.post.columns.name'),
+            'vModel' => 'form.name',
+            'name' => 'name',
+            'placeholder' => trans('crud.post.columns.name')
+        ])
+                @endcomponent
 
-    </div>
-    <div class="col-md-3">
-        @component('codersstudio.crud::fields.text', [
-        'required' => 0
-    ])
-            @slot('label')
-                @lang('crud.post.columns.name')
-            @endslot
-            @slot('vModel')
-                form.name
-            @endslot
-            @slot('name')
-                name
-            @endslot
-            @slot('placeholder')
-                @lang('crud.post.columns.name')
             @endslot
         @endcomponent
+        @component('nos.crud::filter')
+            @slot('input')
+                @component('nos.crud::fields.text', [
+            'required' => 0,
+            'label' => trans('crud.post.columns.slug'),
+            'vModel' => 'form.slug',
+            'name' => 'slug',
+            'placeholder' => trans('crud.post.columns.slug')
+        ])
+                @endcomponent
 
-    </div>
-    <div class="col-md-3">
-        @component('codersstudio.crud::fields.text', [
-        'required' => 0
-    ])
-            @slot('label')
-                @lang('crud.post.columns.slug')
-            @endslot
-            @slot('vModel')
-                form.slug
-            @endslot
-            @slot('name')
-                slug
-            @endslot
-            @slot('placeholder')
-                @lang('crud.post.columns.slug')
             @endslot
         @endcomponent
+        @component('nos.crud::filter')
+            @slot('input')
+                @component('nos.crud::fields.checkbox', [
+            'required' => 0,
+            'label' => trans('crud.post.columns.publish'),
+            'vModel' => 'form.publish',
+            'name' => 'publish'
+        ])
+                @endcomponent
 
-    </div>
-    <div class="col-md-3">
-        @component('codersstudio.crud::fields.checkbox', [
-        'required' => 0
-    ])
-            @slot('label')
-                @lang('crud.post.columns.publish')
-            @endslot
-            @slot('vModel')
-                form.publish
-            @endslot
-            @slot('name')
-                publish
             @endslot
         @endcomponent
+        @component('nos.crud::filter')
+            @slot('input')
+                @component('nos.crud::fields.text', [
+            'required' => 0,
+            'label' => trans('crud.post.columns.preview_text'),
+            'vModel' => 'form.preview_text',
+            'name' => 'preview_text',
+            'placeholder' => trans('crud.post.columns.preview_text')
+        ])
+                @endcomponent
 
-    </div>
-    <div class="col-md-3">
-        @component('codersstudio.crud::fields.text', [
-        'required' => 0
-    ])
-            @slot('label')
-                @lang('crud.post.columns.preview_text')
-            @endslot
-            @slot('vModel')
-                form.preview_text
-            @endslot
-            @slot('name')
-                preview_text
-            @endslot
-            @slot('placeholder')
-                @lang('crud.post.columns.preview_text')
             @endslot
         @endcomponent
+        @component('nos.crud::filter')
+            @slot('input')
+                @component('nos.crud::fields.text', [
+            'required' => 0,
+            'label' => trans('crud.post.columns.detail_text'),
+            'vModel' => 'form.detail_text',
+            'name' => 'detail_text',
+            'placeholder' => trans('crud.post.columns.detail_text')
+        ])
+                @endcomponent
 
-    </div>
-    <div class="col-md-3">
-        @component('codersstudio.crud::fields.text', [
-        'required' => 0
-    ])
-            @slot('label')
-                @lang('crud.post.columns.detail_text')
-            @endslot
-            @slot('vModel')
-                form.detail_text
-            @endslot
-            @slot('name')
-                detail_text
-            @endslot
-            @slot('placeholder')
-                @lang('crud.post.columns.detail_text')
             @endslot
         @endcomponent
+        @component('nos.crud::filter')
+            @slot('input')
+                @component('nos.crud::fields.select', [
+            'required' => 0,
+            'label' => trans('crud.post.columns.category_id'),
+            'vModel' => 'form.category_id',
+            'name' => 'category_id'
+        ])
+                    @slot('options')
+                        @foreach(App\Models\Category::all() as $value)
+                            <option value="{{ $value->id }}">
+                                {{ $value->name }}
+                            </option>
+                        @endforeach
+                    @endslot
+                @endcomponent
 
-    </div>
-    <div class="col-md-3">
-        @component('codersstudio.crud::fields.select', [
-                                           'required' => 0
-                                       ])
-            @slot('label')
-                @lang('crud.post.columns.category_id')
-            @endslot
-            @slot('vModel')
-                form.category_id
-            @endslot
-            @slot('name')
-                category_id
-            @endslot
-            @slot('options')
-                @foreach(App\Category::publish()->get() as $value)
-                    <option value="{{ $value->id }}">
-                        {{ $value->name }}
-                    </option>
-                @endforeach
             @endslot
         @endcomponent
-    </div>
-
-</div>
+    @endslot
+@endcomponent

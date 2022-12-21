@@ -1,24 +1,41 @@
 <?php
 /**
- * CodersStudio 2019
- * https://coders.studio
- * info@coders.studio
+ * Eugeny Nosenko 2021
+ * https://toprogram.ru
+ * info@toprogram.ru
  */
+ 
+namespace Database\Factories;
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Post;
-use Illuminate\Support\Str;
-use Faker\Generator as Faker;
+use App\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Post::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'slug' => $faker->unique()->word,
-        'publish' => $faker->boolean(),
-        'preview_text' => $faker->word,
-        'detail_text' => $faker->word,
-        'category_id' => $faker->numberBetween(1,4),
-        'user_id' => $faker->numberBetween(1,4)
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Post::class;
 
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+        'slug' => $this->faker->unique()->word,
+        'publish' => $this->faker->boolean(),
+        'preview_text' => $this->faker->word,
+        'detail_text' => $this->faker->word,
+        'category_id' => \App\Models\Category::first()->id,
+        'user_id' => \App\Models\User::first()->id,
+        
+        ];
+    }
+}
+

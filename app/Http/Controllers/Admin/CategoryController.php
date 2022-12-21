@@ -1,13 +1,14 @@
 <?php
 /**
-* CodersStudio 2019
-* https://coders.studio
-* info@coders.studio
-*/
+ * Eugeny Nosenko 2022
+ * https://toprogram.ru
+ * info@toprogram.ru
+ */
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use App\Http\Requests\Admin\Category\{
     IndexRequest,
     CreateRequest,
@@ -19,32 +20,49 @@ use App\Http\Requests\Admin\Category\{
     MassDestroyRequest,
     ToggleBooleanRequest
 };
-use App\Category;
+use App\Models\Category;
+use App\Services\CategoryService;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
 
 /**
  * Class CRUDController
- * @package CodersStudio\CRUD\Http\Controllers
+ * @package Nos\CRUD\Http\Controllers
  */
-class CategoryController extends Controller
+final class CategoryController extends Controller
 {
+    protected CategoryService $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     /**
      * List of records
      * @param IndexRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return JsonResponse|View
+     * @throws BindingResolutionException
      */
-    public function index(IndexRequest $request)
+    public function index(IndexRequest $request): JsonResponse|View
     {
         $fields = [
             'id',
             'name',
             'slug',
             'publish',
-
+            
         ];
-        $model = new Category();
-        $data = $model->ofSearch($fields, $request->all())
-            ->paginate($request->get('per_page', 10));
+        $with = [
+            
+        ];
+        $limit = $request->get('per_page', 10);
+        $data = $this->categoryService->search($request->all(), $fields, $with, $limit);
         $response = [
             'data' => $data,
             'selected' => [
@@ -52,21 +70,22 @@ class CategoryController extends Controller
                 'name' => $request->get('name'),
                 'slug' => $request->get('slug'),
                 'publish' => $request->get('publish'),
-
+                
             ]
         ];
         if ($request->ajax()) {
             return response()->json($response);
         }
+
         return view('admin.categories.index', $response);
     }
 
     /**
      * Create form
      * @param CreateRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function create(CreateRequest $request)
+    public function create(CreateRequest $request): Factory|View
     {
         return view('admin.categories.create');
     }
@@ -74,24 +93,26 @@ class CategoryController extends Controller
     /**
      * Store row
      * @param StoreRequest $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): JsonResponse|RedirectResponse|Redirector
     {
-        $newItem = Category::create($request->all());
+        $newItem = $this->categoryService->create($request->validated());
         if ($request->ajax()) {
             return response()->json(['data' => $newItem], 201);
         }
-        return redirect(route('{{pluralName}}.index'));
+
+        return redirect(route('admin.categories.index'));
     }
 
     /**
      * Show row
      * @param ShowRequest $request
      * @param Category $category
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function show(ShowRequest $request, Category $category)
+    public function show(ShowRequest $request, Category $category): Factory|View
     {
         return view('admin.categories.show', [
             'data' => $category
@@ -102,9 +123,9 @@ class CategoryController extends Controller
      * Edit form
      * @param EditRequest $request
      * @param Category $category
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function edit(EditRequest $request, Category $category)
+    public function edit(EditRequest $request, Category $category): Factory|View
     {
         return view('admin.categories.edit', [
             'data' => $category
@@ -116,63 +137,71 @@ class CategoryController extends Controller
      * Update row
      * @param UpdateRequest $request
      * @param Category $category
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function update(UpdateRequest $request, Category $category)
+    public function update(UpdateRequest $request, Category $category): JsonResponse|RedirectResponse|Redirector
     {
-        $category->update($request->all());
+        $this->categoryService->update($category->id, $request->validated());
         if ($request->ajax()) {
             return response()->json(['data' => $category]);
         }
-        return redirect('/admin.categories');
+
+        return redirect(route('admin.categories.index'));
     }
 
     /**
      * Destroy row
      * @param DestroyRequest $request
      * @param Category $category
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Exception
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function destroy(DestroyRequest $request, Category $category)
+    public function destroy(DestroyRequest $request, Category $category): JsonResponse|RedirectResponse|Redirector
     {
-        $category->delete();
+        $this->categoryService->delete($category->id);
         if ($request->ajax()) {
             return response()->json([],204);
         }
-        return redirect('/admin.categories');
+
+        return redirect(route('admin.categories.index'));
     }
 
     /**
      * Destroy multiple rows
      * @param MassDestroyRequest $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function massDestroy(MassDestroyRequest $request)
+    public function massDestroy(MassDestroyRequest $request): JsonResponse|RedirectResponse|Redirector
     {
-        $forDestroy = Category::whereIn('id',$request->get('selected'))->get();
-        foreach ($forDestroy as $item) {
-            $item->delete();
+        foreach ($request->get('selected', []) as $id) {
+            $this->categoryService->delete($id);
         }
         if ($request->ajax()) {
             return response()->json([],204);
         }
-        return redirect('/admin.categories');
+
+        return redirect(route('admin.categories.index'));
     }
 
     /**
      * Toggle boolean fields from index table
      * @param ToggleBooleanRequest $request
      * @param Category $category
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function toggleBoolean(ToggleBooleanRequest $request, Category $category)
+    public function toggleBoolean(ToggleBooleanRequest $request, Category $category): JsonResponse
     {
         if (!in_array($request->get('column_name'), $category->getTableColumns()) ||
-                    $category->getKeyType( $request->get('column_name')) != 'int') {
+                    $category->getKeyType( $request->get('column_name')) !== 'int') {
                         abort(400,'Wrong column!');
                     }
-        $category->update([$request->get('column_name') => $request->get('value')]);
+        $this->categoryService->update($category->id, [
+            $request->get('column_name') => $request->get('value')
+        ]);
+
         return response()->json(['data' => $category]);
     }
 }

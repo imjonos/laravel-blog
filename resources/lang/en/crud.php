@@ -19,22 +19,24 @@ return [
         'view' => 'View'
     ],
     'actions' => [
-            'warning' => 'Warning',
-            'info' => 'Information',
-            'success' => [
-                'edit' => 'Edit succeeded!',
-                'delete' => 'Delete succeeded!',
-                'create' => 'Create succeeded!',
-                'import' => 'Import succeeded!',
-            ],
-            'fail' => [
-                'edit' => 'Edit failed!',
-                'delete' => 'Delete failed!',
-                'create' => 'Create failed!',
-                'import' => 'Import failed!',
-            ]
+        'warning' => 'Warning',
+        'info' => 'Information',
+        'success' => [
+            'edit' => 'Edit succeeded!',
+            'delete' => 'Delete succeeded!',
+            'create' => 'Create succeeded!',
+            'import' => 'Import succeeded!',
+        ],
+        'fail' => [
+            'edit' => 'Edit failed!',
+            'delete' => 'Delete failed!',
+            'create' => 'Create failed!',
+            'import' => 'Import failed!',
+        ]
     ],
     'labels' => [
+        'yes' => 'Yes',
+        'actions' => 'Actions',
         'total' => 'Total',
         'from' => 'from',
         'found' => 'Found',
@@ -45,12 +47,12 @@ return [
         'logout' => 'Logout',
         'import' => 'Import',
         'export' => 'Export',
-        'files'  => 'Files',
+        'files' => 'Files',
         'files_placeholder' => 'Drag and drop to upload file'
     ],
     'post' => [
         'title' => 'Posts',
-         'columns' => [
+        'columns' => [
             'id' => 'Id',
             'name' => 'Name',
             'slug' => 'Slug',
@@ -60,22 +62,22 @@ return [
             'detail_text' => 'Detail text',
             'created_at' => 'Created at',
             'updated_at' => 'Updated at'
-         ]
+        ]
     ],
     'category' => [
         'title' => 'Categories',
-         'columns' => [
+        'columns' => [
             'id' => 'Id',
             'name' => 'Name',
             'slug' => 'Slug',
             'publish' => 'Publish',
             'created_at' => 'Created at',
             'updated_at' => 'Updated at'
-         ]
+        ]
     ],
     'comment' => [
         'title' => 'Comments',
-         'columns' => [
+        'columns' => [
             'id' => 'Id',
             'user_name' => 'User name',
             'publish' => 'Publish',
@@ -83,10 +85,9 @@ return [
             'post_id' => 'Post',
             'created_at' => 'Created at',
             'updated_at' => 'Updated at'
-         ]
+        ]
     ],
-/** Section for new languages **/
-
+    /** Section for new languages **/
 
 
 ];

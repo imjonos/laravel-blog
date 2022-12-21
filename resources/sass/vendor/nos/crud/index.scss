@@ -1,0 +1,29 @@
+.nowrap {
+    white-space: nowrap !important;
+}
+
+[v-cloak] {display: none}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    padding-top: 4rem;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.modal-backdrop {
+    background-color: transparent;
+}
+
+.pointer {
+    cursor: pointer !important;
+}

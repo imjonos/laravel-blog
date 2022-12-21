@@ -1,76 +1,56 @@
-<div class="row">
-	<div class="col-md-3">
-	@component('codersstudio.crud::fields.number', [
-	'required' => 0
+@component('nos.crud::filters')
+    @slot('inputs')
+	    @component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.number', [
+	'required' => 0,
+    'label' => trans('crud.category.columns.id'),
+    'vModel' => 'form.id',
+    'name' => 'id',
+    'placeholder' => trans('crud.category.columns.id')
 ])
-    @slot('label')
-        @lang('crud.category.columns.id')
+@endcomponent
+
     @endslot
-    @slot('vModel')
-        form.id
+@endcomponent
+@component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.text', [
+	'required' => 0,
+    'label' => trans('crud.category.columns.name'),
+    'vModel' => 'form.name',
+    'name' => 'name',
+    'placeholder' => trans('crud.category.columns.name')
+])
+@endcomponent
+
     @endslot
-    @slot('name')
-        id
+@endcomponent
+@component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.text', [
+	'required' => 0,
+    'label' => trans('crud.category.columns.slug'),
+    'vModel' => 'form.slug',
+    'name' => 'slug',
+    'placeholder' => trans('crud.category.columns.slug')
+])
+@endcomponent
+
     @endslot
-    @slot('placeholder')
-        @lang('crud.category.columns.id')
+@endcomponent
+@component('nos.crud::filter')
+    @slot('input')
+	    @component('nos.crud::fields.checkbox', [
+	'required' => 0,
+	'label' => trans('crud.category.columns.publish'),
+	'vModel' => 'form.publish',
+	'name' => 'publish'
+])
+@endcomponent
+
     @endslot
 @endcomponent
 
-</div>
-<div class="col-md-3">
-	@component('codersstudio.crud::fields.text', [
-	'required' => 0
-])
-    @slot('label')
-        @lang('crud.category.columns.name')
-    @endslot
-    @slot('vModel')
-        form.name
-    @endslot
-    @slot('name')
-        name
-    @endslot
-    @slot('placeholder')
-     	@lang('crud.category.columns.name')
-    @endslot
+   @endslot
 @endcomponent
-
-</div>
-<div class="col-md-3">
-	@component('codersstudio.crud::fields.text', [
-	'required' => 0
-])
-    @slot('label')
-        @lang('crud.category.columns.slug')
-    @endslot
-    @slot('vModel')
-        form.slug
-    @endslot
-    @slot('name')
-        slug
-    @endslot
-    @slot('placeholder')
-     	@lang('crud.category.columns.slug')
-    @endslot
-@endcomponent
-
-</div>
-<div class="col-md-3">
-	@component('codersstudio.crud::fields.checkbox', [
-	'required' => 0
-])
-    @slot('label')
-        @lang('crud.category.columns.publish')
-    @endslot
-    @slot('vModel')
-        form.publish
-    @endslot
-    @slot('name')
-        publish
-    @endslot
-@endcomponent
-
-</div>
-
-</div>

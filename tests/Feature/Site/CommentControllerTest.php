@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Site;
 
-use App\Post;
+use App\Models\Post;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use PostsTableSeeder;
 use Tests\TestCase;

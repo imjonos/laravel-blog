@@ -21,7 +21,7 @@ mix.webpackConfig({
     }
 });
 
-mix.js('resources/js/app.js', 'public/js')
+mix.vue({version: 2}).js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps()
     .webpackConfig({devtool: 'source-map'});
@@ -32,5 +32,3 @@ mix.js('resources/js/app.js', 'public/js')
 if (mix.inProduction()) {
     mix.version();
 }
-
-

@@ -18,25 +18,27 @@ return [
         'delete' => 'Удалить',
         'view' => 'Просмотреть'
     ],
-     'actions' => [
-         'warning' => 'Внимание',
-         'info' => 'Информация',
-         'success' => [
-             'edit' => 'Редактирование прошло успешно!',
-             'delete' => 'Удаление прошло успешно!',
-             'create' => 'Создание прошло успешно!',
-             'import' => 'Импорт прошел успешно!',
-         ],
-         'fail' => [
-             'edit' => 'Что-то пошло не так при редатировании!',
-             'delete' => 'Что-то пошло не так при удалении!',
-             'create' => 'Что-то пошло не так при создании!',
-             'import' => 'Что-то пошло не так при ипорте!',
-         ]
-     ],
+    'actions' => [
+        'warning' => 'Внимание',
+        'info' => 'Информация',
+        'success' => [
+            'edit' => 'Редактирование прошло успешно!',
+            'delete' => 'Удаление прошло успешно!',
+            'create' => 'Создание прошло успешно!',
+            'import' => 'Импорт прошел успешно!',
+        ],
+        'fail' => [
+            'edit' => 'Что-то пошло не так при редатировании!',
+            'delete' => 'Что-то пошло не так при удалении!',
+            'create' => 'Что-то пошло не так при создании!',
+            'import' => 'Что-то пошло не так при ипорте!',
+        ]
+    ],
     'labels' => [
+        'actions' => '',
         'total' => 'Всего',
         'from' => 'из',
+        'yes' => 'Да',
         'found' => 'Найдено',
         'with_selected' => 'С выбранными',
         'per_page' => 'На странице',
@@ -47,43 +49,44 @@ return [
         'export' => 'Экспорт'
     ],
     'post' => [
-        'title' => 'Posts',
-         'columns' => [
+        'title' => 'Посты',
+        'columns' => [
             'id' => 'Id',
-            'name' => 'Name',
+            'user_id' => 'Пользователь',
+            'name' => 'Название',
             'slug' => 'Slug',
-            'publish' => 'Publish',
-            'preview_text' => 'Preview text',
-            'detail_text' => 'Detail text',
-            'created_at' => 'Created at',
-            'updated_at' => 'Updated at'
-         ]
+            'category_id' => 'Категория',
+            'publish' => 'Опубликовано',
+            'preview_text' => 'Коротко',
+            'detail_text' => 'Полный текст',
+            'created_at' => 'Создано',
+            'updated_at' => 'Изменено'
+        ]
     ],
     'category' => [
-        'title' => 'Categories',
-         'columns' => [
+        'title' => 'Категории',
+        'columns' => [
             'id' => 'Id',
-            'name' => 'Name',
+            'name' => 'Название',
             'slug' => 'Slug',
-            'publish' => 'Publish',
-            'created_at' => 'Created at',
-            'updated_at' => 'Updated at'
-         ]
+            'publish' => 'Опубликовано',
+            'created_at' => 'Создано',
+            'updated_at' => 'Изменено'
+        ]
     ],
     'comment' => [
-        'title' => 'Comments',
-         'columns' => [
+        'title' => 'Комментарии',
+        'columns' => [
             'id' => 'Id',
-            'user_name' => 'User name',
-            'publish' => 'Publish',
-            'comment' => 'Comment',
-            'post_id' => 'Post id',
-            'created_at' => 'Created at',
-            'updated_at' => 'Updated at'
-         ]
+            'user_name' => 'Имя',
+            'publish' => 'Опубликовано',
+            'comment' => 'Комментарий',
+            'post_id' => 'Пост',
+            'created_at' => 'Создано',
+            'updated_at' => 'Изменено'
+        ]
     ],
-/** Section for new languages **/
-
+    /** Section for new languages **/
 
 
 ];
