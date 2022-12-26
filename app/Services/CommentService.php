@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use Nos\CRUD\Services\BaseService;
-use App\Models\Comment;
 use App\Interfaces\Repositories\CommentRepositoryInterface;
+use App\Models\Comment;
+use Nos\CRUD\Services\BaseService;
 
 /**
  * @method CommentRepositoryInterface getRepository()

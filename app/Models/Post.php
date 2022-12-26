@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nos\CRUD\Traits\Crudable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -27,6 +28,9 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @property int $user_id
  * @property string $created_at
  * @property string $updated_at
+ *
+ * @method Builder ofSlug(string $slug)
+ * @method Builder publish()
  */
 final class Post extends Model implements HasMedia
 {
@@ -97,6 +101,10 @@ final class Post extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     /**
      * Scope for filtering by id
@@ -120,6 +128,13 @@ final class Post extends Model implements HasMedia
         return $query->where('name', 'like', '%' . $value . '%');
     }
 
+    public function scopeOfText(Builder $query, string $value): Builder
+    {
+        return $query->where(fn(Builder $builder) => $builder->ofName($value))
+            ->orWhere(fn(Builder $builder) => $builder->ofDetailText($value))
+            ->orWhere(fn(Builder $builder) => $builder->ofPreviewText($value));
+    }
+
     /**
      * Scope for filtering by slug
      * @param Builder $query
@@ -137,9 +152,9 @@ final class Post extends Model implements HasMedia
      * @param string $value
      * @return Builder
      */
-    public function scopeOfPublish(Builder $query, string $value): Builder
+    public function scopeOfPublish(Builder $query, bool $value): Builder
     {
-        return $query->where('publish', '=', $value);
+        return $query->where('publish', $value);
     }
 
     public function scopePublish(Builder $query): Builder

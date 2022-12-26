@@ -18,30 +18,30 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
-* @property int $id
-* @property string $user_name
-* @property bool $publish
-* @property string $comment
-* @property  $post_id
-* @property string $created_at
-* @property string $updated_at
-*/
+ * @property int $id
+ * @property string $user_name
+ * @property bool $publish
+ * @property string $comment
+ * @property  $post_id
+ * @property string $created_at
+ * @property string $updated_at
+ */
 final class Comment extends Model
 {
     use Crudable;
     use HasFactory;
 
-   /**
+    /**
      * Columns available for sorting
      * @var array
      */
     protected $sortable = [
-                            'id',
-                            'user_name',
-                            'publish',
-                            'comment',
-                            'post_id',
-                            ];
+        'id',
+        'user_name',
+        'publish',
+        'comment',
+        'post_id',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -49,11 +49,11 @@ final class Comment extends Model
      * @var array
      */
     protected $fillable = [
-                            'user_name',
-                            'publish',
-                            'comment',
-                            'post_id',
-                            ];
+        'user_name',
+        'publish',
+        'comment',
+        'post_id',
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -61,7 +61,7 @@ final class Comment extends Model
      * @var array
      */
     protected $hidden = [
-                            ];
+    ];
 
     /**
      * The storage format of the model's date columns.
@@ -70,17 +70,16 @@ final class Comment extends Model
      */
     protected $dateFormat = 'Y-m-d H:i:s';
 
-    
+
     /**
-    * Get the post record associated with the Comment.
-    */
+     * Get the post record associated with the Comment.
+     */
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
 
 
-    
     /**
      * Scope for filtering by id
      * @param Builder $query
@@ -89,7 +88,7 @@ final class Comment extends Model
      */
     public function scopeOfId(Builder $query, string $value): Builder
     {
-        return $query->where('id','=',$value);
+        return $query->where('id', '=', $value);
     }
 
     /**
@@ -100,7 +99,7 @@ final class Comment extends Model
      */
     public function scopeOfUserName(Builder $query, string $value): Builder
     {
-        return $query->where('user_name','like','%'.$value.'%');
+        return $query->where('user_name', 'like', '%' . $value . '%');
     }
 
     /**
@@ -111,7 +110,7 @@ final class Comment extends Model
      */
     public function scopeOfPublish(Builder $query, string $value): Builder
     {
-        return $query->where('publish','=',$value);
+        return $query->where('publish', '=', $value);
     }
 
     /**
@@ -122,7 +121,7 @@ final class Comment extends Model
      */
     public function scopeOfComment(Builder $query, string $value): Builder
     {
-        return $query->where('comment','like','%'.$value.'%');
+        return $query->where('comment', 'like', '%' . $value . '%');
     }
 
     /**
@@ -133,7 +132,7 @@ final class Comment extends Model
      */
     public function scopeOfPostId(Builder $query, string $value): Builder
     {
-        return $query->where('post_id','=',$value);
+        return $query->where('post_id', '=', $value);
     }
 
 

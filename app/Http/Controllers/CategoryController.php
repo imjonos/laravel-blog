@@ -2,29 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Post;
+use App\Services\CategoryService;
+use App\Services\PostService;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
 final class CategoryController extends Controller
 {
+
+    private CategoryService $categoryService;
+    private PostService $postService;
+
+    public function __construct(CategoryService $categoryService, PostService $postService)
+    {
+        $this->categoryService = $categoryService;
+        $this->postService = $postService;
+    }
+
     /**
      * Show category
      *
      * @param string $slug
      * @return Factory|View
+     * @throws BindingResolutionException
      */
     public function show(string $slug): Factory|View
     {
-        $category = Category::ofSlug($slug)->publish()->firstOrFail();
-        $posts = Post::publish()->ofCategoryId($category->id)->orderBy('id', 'DESC')->paginate(10);
-        $categories = Category::all();
+        $category = $this->categoryService->getBySlug($slug);
+        $posts = $this->postService->search([
+            'category_id' => $category->id,
+            'publish' => true
+        ]);
 
         return view('site.categories.show', [
             'posts' => $posts,
-            'category' => $category,
-            'categories' => $categories
+            'category' => $category
         ]);
     }
 }

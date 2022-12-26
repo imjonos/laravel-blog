@@ -13,4 +13,9 @@ use Nos\CRUD\Repositories\BaseRepository;
 final class PostRepository extends BaseRepository implements PostRepositoryInterface
 {
     protected string $class = Post::class;
+
+    public function getBySlug(string $slug): Post
+    {
+        return $this->query()->ofSlug($slug)->publish()->firstOrFail();
+    }
 }

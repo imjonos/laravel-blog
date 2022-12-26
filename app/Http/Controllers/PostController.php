@@ -5,32 +5,39 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Site\Post\IndexRequest;
 use App\Http\Requests\Site\Post\ShowRequest;
-use App\Models\Category;
-use App\Models\Post;
+use App\Services\PostService;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
 final class PostController extends Controller
 {
+
+    private PostService $postService;
+
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
+
     /**
      * Show the list of the posts
      *
      * @param IndexRequest $request
      * @return Renderable
+     * @throws BindingResolutionException
      */
     public function index(IndexRequest $request): Renderable
     {
         $search = $request->get('search', '');
-        $posts = Post::publish()->ofName($search)->orWhere('detail_text', 'like', "%$search%")->orderBy(
-            'id',
-            'DESC'
-        )->paginate(10);
-        $categories = Category::all();
+        $posts = $this->postService->search([
+            'text' => $search,
+            'publish' => true
+        ]);
 
         return view('site.posts.index', [
-            "posts" => $posts,
-            "categories" => $categories
+            'posts' => $posts
         ]);
     }
 
@@ -40,15 +47,14 @@ final class PostController extends Controller
      * @param ShowRequest $request
      * @param string $slug
      * @return Factory|View
+     * @throws BindingResolutionException
      */
     public function show(ShowRequest $request, string $slug): Factory|View
     {
-        $post = Post::ofSlug($slug)->publish()->firstOrFail();
-        $categories = Category::all();
+        $post = $this->postService->getBySlug($slug);
 
         return view('site.posts.show', [
-            'post' => $post,
-            'categories' => $categories
+            'post' => $post
         ]);
     }
 }

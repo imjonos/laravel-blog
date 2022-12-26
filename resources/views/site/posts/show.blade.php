@@ -4,7 +4,6 @@
 
 @section('content')
 
-
     <!-- Post Content Column -->
     <div class="col-lg-8">
         <!-- Title -->
@@ -25,6 +24,9 @@
         <!-- Post Content -->
         {!!  $post->detail_text !!}
         <hr>
+        @if(Session::has('message'))
+            <p class="alert alert-primary">{{ Session::get('message') }}</p>
+        @endif
         <!-- Comments Form -->
         <div class="card my-4">
             <h5 class="card-header">{{ trans('posts.comments.title') }}:</h5>
@@ -52,43 +54,43 @@
 
         <!-- Single Comment Bad style.-->
         @foreach($post->comments()->ofPublish(1)->orderBy('id','desc')->get() AS $comment)
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">{{ $comment->user_name }}</h5>
-                {{ $comment->comment }}
-                <br>
-                {{ $comment->created_at }}
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">{{ $comment->user_name }}</h5>
+                    {{ $comment->comment }}
+                    <br>
+                    {{ $comment->created_at }}
 
+                </div>
             </div>
-        </div>
         @endforeach
 
         <!-- Comment with nested comments -->
-       {{-- <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        {{-- <div class="media mb-4">
+             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+             <div class="media-body">
+                 <h5 class="mt-0">Commenter Name</h5>
+                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
-                <div class="media mt-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
+                 <div class="media mt-4">
+                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                     <div class="media-body">
+                         <h5 class="mt-0">Commenter Name</h5>
+                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                     </div>
+                 </div>
 
-                <div class="media mt-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
+                 <div class="media mt-4">
+                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                     <div class="media-body">
+                         <h5 class="mt-0">Commenter Name</h5>
+                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                     </div>
+                 </div>
 
-            </div>
-        </div>--}}
+             </div>
+         </div>--}}
 
     </div>
     <!-- /.row -->
