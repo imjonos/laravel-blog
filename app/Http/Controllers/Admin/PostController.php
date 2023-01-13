@@ -61,7 +61,7 @@ final class PostController extends Controller
             'detail_text',
             'category_id',
             'user_id',
-
+            'views'
         ];
         $with = [
             'category',

@@ -15,7 +15,7 @@
             <a href="https://toprogram.ru" target="_blank">Eugeny Nosenko</a>
             <br>
             {{trans('posts.posted_at')}}:
-            {{ $post->created_at }}
+            {{ $post->created_at }} &nbsp; <span class="fa fa-eye"></span> {{ $post->views }}
         </p>
         <hr>
         <!-- Preview Image -->

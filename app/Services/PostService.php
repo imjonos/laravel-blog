@@ -24,4 +24,15 @@ final class PostService extends BaseService
     {
         return $this->getRepository()->getBySlug($slug);
     }
+
+    /**
+     * @throws BindingResolutionException
+     */
+    public function viewPost(int $postId): void
+    {
+        $post = $this->find($postId);
+        $this->update($postId, [
+            'views' => $post->views + 1
+        ]);
+    }
 }

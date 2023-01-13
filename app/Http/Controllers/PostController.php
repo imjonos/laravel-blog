@@ -52,6 +52,7 @@ final class PostController extends Controller
     public function show(ShowRequest $request, string $slug): Factory|View
     {
         $post = $this->postService->getBySlug($slug);
+        $this->postService->viewPost($post->id);
 
         return view('site.posts.show', [
             'post' => $post

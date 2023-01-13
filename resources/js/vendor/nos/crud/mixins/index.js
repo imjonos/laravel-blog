@@ -9,7 +9,7 @@ export default {
             },
             form: {},
             orderColumn: 'id',
-            orderDirection: 'asc',
+            orderDirection: 'desc',
             loading: false,
             selectedCheckboxes: [],
             allSelected: false,
@@ -20,15 +20,15 @@ export default {
     mounted() {
         this.form = this.selected;
         let urlParams = new URLSearchParams(window.location.search);
-        if(urlParams.has('page')){
+        if (urlParams.has('page')) {
             let data = JSON.parse(JSON.stringify(this.data));
             data.current_page = parseInt(urlParams.get('page'));
             this.data = data;
         }
-        if(urlParams.has('order_column')){
+        if (urlParams.has('order_column')) {
             this.orderColumn = urlParams.get('order_column');
         }
-        if(urlParams.has('order_direction')){
+        if (urlParams.has('order_direction')) {
             this.orderDirection = urlParams.get('order_direction');
         }
         this.getData();

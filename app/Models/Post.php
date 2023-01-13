@@ -26,6 +26,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @property string $detail_text
  * @property int $category_id
  * @property int $user_id
+ * @property int $views
  * @property string $created_at
  * @property string $updated_at
  *
@@ -51,6 +52,7 @@ final class Post extends Model implements HasMedia
         'detail_text',
         'category_id',
         'user_id',
+        'views'
     ];
 
     /**
@@ -65,7 +67,8 @@ final class Post extends Model implements HasMedia
         'preview_text',
         'detail_text',
         'category_id',
-        'user_id',
+        'views',
+        'user_id'
     ];
 
     /**

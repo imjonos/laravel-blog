@@ -1,13 +1,13 @@
 @component('nos.crud::table', [
     'componentName' => 'post',
     'columns' => [
-         ['name' => 'id', 'order' => true],
-      ['name' => 'name', 'order' => true],
-      ['name' => 'slug', 'order' => true],
-      ['name' => 'publish', 'order' => true],
-      ['name' => 'preview_text', 'order' => true],
-      ['name' => 'category_id', 'order' => true]
-
+        ['name' => 'id', 'order' => true],
+        ['name' => 'name', 'order' => true],
+        ['name' => 'slug', 'order' => true],
+        ['name' => 'publish', 'order' => true],
+        ['name' => 'preview_text', 'order' => true],
+        ['name' => 'category_id', 'order' => true],
+        ['name' => 'views', 'order' => true],
     ]
 ])
     @slot('category_id')

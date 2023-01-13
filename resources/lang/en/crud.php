@@ -59,6 +59,7 @@ return [
             'category_id' => 'Category',
             'publish' => 'Publish',
             'preview_text' => 'Preview text',
+            'views' => 'Views',
             'detail_text' => 'Detail text',
             'created_at' => 'Created at',
             'updated_at' => 'Updated at'
