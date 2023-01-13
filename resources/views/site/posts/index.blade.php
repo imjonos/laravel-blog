@@ -20,7 +20,7 @@
                         <a href="{{ route('site.posts.show', ['slug' => $post->slug]) }}" class="btn btn-primary">@lang("posts.index.more") &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
-                        {{ $post->created_at }}
+                        {{ $post->created_at }} &nbsp; <span class="fa fa-eye"></span> {{ $post->views }}
                     </div>
                 </div>
         @endforeach
