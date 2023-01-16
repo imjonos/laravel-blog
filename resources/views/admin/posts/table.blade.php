@@ -8,6 +8,7 @@
         ['name' => 'preview_text', 'order' => true],
         ['name' => 'category_id', 'order' => true],
         ['name' => 'views', 'order' => true],
+        ['name' => 'created_at', 'order' => true]
     ]
 ])
     @slot('category_id')
@@ -16,5 +17,6 @@
 
     @slot('publish')
         <template v-if="item.publish"> @{{ trans('crud.labels.yes') }}</template>
+        <template v-else> @{{ trans('crud.labels.no') }}</template>
     @endslot
 @endcomponent

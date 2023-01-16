@@ -6,6 +6,11 @@
  */
 
 return [
+    'confirmation' => [
+        'message' => 'Вы уверены?',
+        'cancel' => 'Отмена',
+        'yes' => 'Да',
+    ],
     'buttons' => [
         'save' => 'Сохранить',
         'edit' => 'Изменить',
@@ -36,6 +41,7 @@ return [
     ],
     'labels' => [
         'actions' => '',
+        'no' => 'Нет',
         'total' => 'Всего',
         'from' => 'из',
         'yes' => 'Да',

@@ -8,21 +8,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use App\Http\Requests\Admin\Category\{
-    IndexRequest,
-    CreateRequest,
+use App\Http\Requests\Admin\Category\{CreateRequest,
+    DestroyRequest,
     EditRequest,
+    IndexRequest,
+    MassDestroyRequest,
     ShowRequest,
     StoreRequest,
-    UpdateRequest,
-    DestroyRequest,
-    MassDestroyRequest,
-    ToggleBooleanRequest
+    ToggleBooleanRequest,
+    UpdateRequest
 };
 use App\Models\Category;
 use App\Services\CategoryService;
 use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -56,10 +55,11 @@ final class CategoryController extends Controller
             'name',
             'slug',
             'publish',
-            
+            'created_at'
+
         ];
         $with = [
-            
+
         ];
         $limit = $request->get('per_page', 10);
         $data = $this->categoryService->search($request->all(), $fields, $with, $limit);
@@ -70,7 +70,7 @@ final class CategoryController extends Controller
                 'name' => $request->get('name'),
                 'slug' => $request->get('slug'),
                 'publish' => $request->get('publish'),
-                
+
             ]
         ];
         if ($request->ajax()) {
@@ -78,16 +78,6 @@ final class CategoryController extends Controller
         }
 
         return view('admin.categories.index', $response);
-    }
-
-    /**
-     * Create form
-     * @param CreateRequest $request
-     * @return Factory|View
-     */
-    public function create(CreateRequest $request): Factory|View
-    {
-        return view('admin.categories.create');
     }
 
     /**
@@ -104,6 +94,16 @@ final class CategoryController extends Controller
         }
 
         return redirect(route('admin.categories.index'));
+    }
+
+    /**
+     * Create form
+     * @param CreateRequest $request
+     * @return Factory|View
+     */
+    public function create(CreateRequest $request): Factory|View
+    {
+        return view('admin.categories.create');
     }
 
     /**
@@ -132,24 +132,6 @@ final class CategoryController extends Controller
         ]);
     }
 
-
-    /**
-     * Update row
-     * @param UpdateRequest $request
-     * @param Category $category
-     * @return JsonResponse|RedirectResponse|Redirector
-     * @throws Exception
-     */
-    public function update(UpdateRequest $request, Category $category): JsonResponse|RedirectResponse|Redirector
-    {
-        $this->categoryService->update($category->id, $request->validated());
-        if ($request->ajax()) {
-            return response()->json(['data' => $category]);
-        }
-
-        return redirect(route('admin.categories.index'));
-    }
-
     /**
      * Destroy row
      * @param DestroyRequest $request
@@ -161,7 +143,7 @@ final class CategoryController extends Controller
     {
         $this->categoryService->delete($category->id);
         if ($request->ajax()) {
-            return response()->json([],204);
+            return response()->json([], 204);
         }
 
         return redirect(route('admin.categories.index'));
@@ -179,7 +161,7 @@ final class CategoryController extends Controller
             $this->categoryService->delete($id);
         }
         if ($request->ajax()) {
-            return response()->json([],204);
+            return response()->json([], 204);
         }
 
         return redirect(route('admin.categories.index'));
@@ -195,13 +177,30 @@ final class CategoryController extends Controller
     public function toggleBoolean(ToggleBooleanRequest $request, Category $category): JsonResponse
     {
         if (!in_array($request->get('column_name'), $category->getTableColumns()) ||
-                    $category->getKeyType( $request->get('column_name')) !== 'int') {
-                        abort(400,'Wrong column!');
-                    }
+            $category->getKeyType($request->get('column_name')) !== 'int') {
+            abort(400, 'Wrong column!');
+        }
         $this->categoryService->update($category->id, [
             $request->get('column_name') => $request->get('value')
         ]);
 
         return response()->json(['data' => $category]);
+    }
+
+    /**
+     * Update row
+     * @param UpdateRequest $request
+     * @param Category $category
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
+     */
+    public function update(UpdateRequest $request, Category $category): JsonResponse|RedirectResponse|Redirector
+    {
+        $this->categoryService->update($category->id, $request->validated());
+        if ($request->ajax()) {
+            return response()->json(['data' => $category]);
+        }
+
+        return redirect(route('admin.categories.index'));
     }
 }

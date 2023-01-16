@@ -19,21 +19,25 @@
         </ul>
         {{-- <span class="navbar-text">
         </span> --}}
-        <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    @lang('crud.labels.profile')
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    @if(auth()->check())
-                        <a class="dropdown-item" href="/logout">@lang('crud.labels.logout')</a>
-                    @else
-                        <a class="dropdown-item" href="/login">@lang('crud.labels.login')</a>
-                    @endif
-                </div>
-            </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        @lang('crud.labels.profile')
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li>
+                            @if(auth()->check())
+                                <a class="dropdown-item" href="/logout">@lang('crud.labels.logout')</a>
+                            @else
+                                <a class="dropdown-item" href="/login">@lang('crud.labels.login')</a>
+                            @endif
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 <div class="container-fluid" id="app">

@@ -8,27 +8,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use App\Http\Requests\Admin\Comment\{
-    IndexRequest,
-    CreateRequest,
+use App\Http\Requests\Admin\Comment\{CreateRequest,
+    DestroyRequest,
     EditRequest,
+    IndexRequest,
+    MassDestroyRequest,
     ShowRequest,
     StoreRequest,
-    UpdateRequest,
-    DestroyRequest,
-    MassDestroyRequest,
-    ToggleBooleanRequest
+    ToggleBooleanRequest,
+    UpdateRequest
 };
 use App\Models\Comment;
 use App\Services\CommentService;
 use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
-use App\Models\Post;
 
 
 /**
@@ -58,7 +56,8 @@ final class CommentController extends Controller
             'publish',
             'comment',
             'post_id',
-            
+            'created_at'
+
         ];
         $with = [
             'post'
@@ -73,7 +72,7 @@ final class CommentController extends Controller
                 'publish' => $request->get('publish'),
                 'comment' => $request->get('comment'),
                 'post_id' => $request->get('post_id'),
-                
+
             ]
         ];
         if ($request->ajax()) {
@@ -81,16 +80,6 @@ final class CommentController extends Controller
         }
 
         return view('admin.comments.index', $response);
-    }
-
-    /**
-     * Create form
-     * @param CreateRequest $request
-     * @return Factory|View
-     */
-    public function create(CreateRequest $request): Factory|View
-    {
-        return view('admin.comments.create');
     }
 
     /**
@@ -107,6 +96,16 @@ final class CommentController extends Controller
         }
 
         return redirect(route('admin.comments.index'));
+    }
+
+    /**
+     * Create form
+     * @param CreateRequest $request
+     * @return Factory|View
+     */
+    public function create(CreateRequest $request): Factory|View
+    {
+        return view('admin.comments.create');
     }
 
     /**
@@ -135,24 +134,6 @@ final class CommentController extends Controller
         ]);
     }
 
-
-    /**
-     * Update row
-     * @param UpdateRequest $request
-     * @param Comment $comment
-     * @return JsonResponse|RedirectResponse|Redirector
-     * @throws Exception
-     */
-    public function update(UpdateRequest $request, Comment $comment): JsonResponse|RedirectResponse|Redirector
-    {
-        $this->commentService->update($comment->id, $request->validated());
-        if ($request->ajax()) {
-            return response()->json(['data' => $comment]);
-        }
-
-        return redirect(route('admin.comments.index'));
-    }
-
     /**
      * Destroy row
      * @param DestroyRequest $request
@@ -164,7 +145,7 @@ final class CommentController extends Controller
     {
         $this->commentService->delete($comment->id);
         if ($request->ajax()) {
-            return response()->json([],204);
+            return response()->json([], 204);
         }
 
         return redirect(route('admin.comments.index'));
@@ -182,7 +163,7 @@ final class CommentController extends Controller
             $this->commentService->delete($id);
         }
         if ($request->ajax()) {
-            return response()->json([],204);
+            return response()->json([], 204);
         }
 
         return redirect(route('admin.comments.index'));
@@ -198,13 +179,30 @@ final class CommentController extends Controller
     public function toggleBoolean(ToggleBooleanRequest $request, Comment $comment): JsonResponse
     {
         if (!in_array($request->get('column_name'), $comment->getTableColumns()) ||
-                    $comment->getKeyType( $request->get('column_name')) !== 'int') {
-                        abort(400,'Wrong column!');
-                    }
+            $comment->getKeyType($request->get('column_name')) !== 'int') {
+            abort(400, 'Wrong column!');
+        }
         $this->commentService->update($comment->id, [
             $request->get('column_name') => $request->get('value')
         ]);
 
         return response()->json(['data' => $comment]);
+    }
+
+    /**
+     * Update row
+     * @param UpdateRequest $request
+     * @param Comment $comment
+     * @return JsonResponse|RedirectResponse|Redirector
+     * @throws Exception
+     */
+    public function update(UpdateRequest $request, Comment $comment): JsonResponse|RedirectResponse|Redirector
+    {
+        $this->commentService->update($comment->id, $request->validated());
+        if ($request->ajax()) {
+            return response()->json(['data' => $comment]);
+        }
+
+        return redirect(route('admin.comments.index'));
     }
 }
