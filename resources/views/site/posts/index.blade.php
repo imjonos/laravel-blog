@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', trans("posts.index.title"))
+@section('description', trans("posts.index.description"))
 
 @section('content')
         <!-- Blog Entries Column -->

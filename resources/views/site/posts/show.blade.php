@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', env('APP_NAME').": ".$post->name )
+@section('title', $post->name )
+@section('description', $post->preview_text )
+@section('author', 'Eugeny Nosenko')
 
 @section('content')
 
@@ -32,6 +34,7 @@
             <h5 class="card-header">{{ trans('posts.comments.title') }}:</h5>
             <div class="card-body">
                 <form method="post" action="{{route('site.comments.store', ['slug'=> $post->slug])}}">
+                    <x-honeypot/>
                     <div class="form-group">
                         {{ trans('posts.comments.name') }}:
                         <input name="user_name" type="text" class="form-control"/>

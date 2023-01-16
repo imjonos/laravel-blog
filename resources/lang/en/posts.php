@@ -8,6 +8,7 @@
 return [
     'index' => [
         'title' => 'Blog',
+        'description' => 'Blog',
         'secondTitle' => 'Any text',
         'more' => 'Read More'
     ],

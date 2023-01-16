@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -72,4 +72,3 @@
 </body>
 
 </html>
-
