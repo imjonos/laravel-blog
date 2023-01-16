@@ -24,7 +24,9 @@
         <img class="img-fluid rounded" src="{{ $post->image }}" alt="">
         <hr>
         <!-- Post Content -->
-        {!!  $post->detail_text !!}
+        <span v-pre>
+            {!! $post->detail_text !!}
+        </span>
         <hr>
         @if(Session::has('message'))
             <p class="alert alert-primary">{{ Session::get('message') }}</p>
