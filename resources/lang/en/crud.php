@@ -31,12 +31,14 @@ return [
             'delete' => 'Delete succeeded!',
             'create' => 'Create succeeded!',
             'import' => 'Import succeeded!',
+            'publish' => 'Publish succeeded!'
         ],
         'fail' => [
             'edit' => 'Edit failed!',
             'delete' => 'Delete failed!',
             'create' => 'Create failed!',
             'import' => 'Import failed!',
+            'publish' => 'Publish failed!'
         ]
     ],
     'labels' => [

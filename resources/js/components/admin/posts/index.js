@@ -6,5 +6,20 @@ Vue.component('post-index', {
             link: '/admin/posts',
         }
     },
-    mixins: [MixinsIndex]
+    mixins: [MixinsIndex],
+    methods: {
+        publish(id) {
+            axios.post('/admin/posts/' + id + '/publish').then(response => {
+                this.systemMessage('success', {
+                    'title': this.trans('crud.actions.info'),
+                    'text': this.trans('crud.actions.success.publish')
+                });
+            }).catch(reason => {
+                this.systemMessage('error', {
+                    'title': this.trans('crud.actions.warning'),
+                    'text': this.trans('crud.actions.fail.publish')
+                });
+            })
+        }
+    }
 });

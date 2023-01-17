@@ -11,6 +11,10 @@
         ['name' => 'created_at', 'order' => true]
     ]
 ])
+    @slot('name')
+        <a href="#" @click.prevent="publish(item.id)"><span class="fa fa-share"></span></a>
+        @{{ item.name }}
+    @endslot
     @slot('category_id')
         <template v-if="item.category.name"> @{{ item.category.name }}</template>
     @endslot

@@ -34,6 +34,9 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::post('admin/posts/massdestroy', [\App\Http\Controllers\Admin\PostController::class, 'massDestroy'])->name(
         'posts.massdestroy'
     );
+    Route::post('admin/posts/{post}/publish', [\App\Http\Controllers\Admin\PostController::class, 'publish'])->name(
+        'posts.publish'
+    );
     Route::put('admin/posts/{post}/toggleboolean', [\App\Http\Controllers\Admin\PostController::class, 'toggleBoolean']
     )->name('posts.toggleboolean');
     Route::resource('admin/comments', \App\Http\Controllers\Admin\CommentController::class);

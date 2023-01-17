@@ -10,7 +10,8 @@ return [
         'title' => 'Blog',
         'description' => 'Blog',
         'secondTitle' => 'Any text',
-        'more' => 'Read More'
+        'read_more' => 'Read More',
+        'more' => 'Open'
     ],
     'comments' => [
         'title' => 'Leave a Comment',

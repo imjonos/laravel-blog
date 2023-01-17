@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 use Nos\CRUD\Traits\Crudable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -27,6 +28,9 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @property int $category_id
  * @property int $user_id
  * @property int $views
+ * @property string $image_public_path
+ * @property string $image_url
+ * @property string $image_path
  * @property string $created_at
  * @property string $updated_at
  *
@@ -36,6 +40,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 final class Post extends Model implements HasMedia
 {
     use Crudable;
+    use Notifiable;
     use HasFactory;
     use HasMediaTrait;
 
@@ -224,16 +229,38 @@ final class Post extends Model implements HasMedia
         ];
     }
 
-    /**
-     * Get image path
-     * @return string
-     */
-    public function getImageAttribute(): string
+    public function getImagePublicPathAttribute(): string
     {
         $image = $this->media()->orderBy('id', 'DESC')->first();
-        $path = "http://placehold.it/900x300";
+        $path = '';
         if (isset($image->file_name)) {
-            $path = '/storage/' . $image->id . '/' . $image->file_name;
+            $path = $image->id . '/' . $image->file_name;
+        }
+
+        return $path;
+    }
+
+    /**
+     * Get image public url
+     * @return string
+     */
+    public function getImageUrlAttribute(): string
+    {
+        $imagePublicPath = $this->image_public_path;
+        $path = "/images/900x300.png";
+        if ($imagePublicPath) {
+            $path = '/storage/' . $imagePublicPath;
+        }
+
+        return $path;
+    }
+
+    public function getImagePathAttribute(): string
+    {
+        $imagePublicPath = $this->image_public_path;
+        $path = public_path() . '/images/900x300.png';
+        if ($imagePublicPath) {
+            $path = storage_path('app/public') . '/' . $imagePublicPath;
         }
 
         return $path;

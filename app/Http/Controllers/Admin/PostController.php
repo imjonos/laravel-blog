@@ -19,6 +19,7 @@ use App\Http\Requests\Admin\Post\{CreateRequest,
     UpdateRequest
 };
 use App\Models\Post;
+use App\Notifications\PostPublished;
 use App\Services\PostService;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -215,5 +216,12 @@ final class PostController extends Controller
         }
 
         return redirect(route('admin.posts.index'));
+    }
+
+    public function publish(Post $post): JsonResponse
+    {
+        $post->notify(new PostPublished());
+
+        return response()->json();
     }
 }

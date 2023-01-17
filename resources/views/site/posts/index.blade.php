@@ -14,7 +14,7 @@
         @foreach($posts AS $post)
             <!-- Blog Post -->
                 <div class="card mb-4">
-                    <img class="card-img-top" src="{{$post->image}}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ $post->image_url }}" alt="{{ $post->name }}">
                     <div class="card-body">
                         <h2 class="card-title"> {{ $post->name }}</h2>
                         <p class="card-text"> {{ $post->preview_text }} </p>

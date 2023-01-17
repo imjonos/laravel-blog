@@ -21,7 +21,7 @@
         </p>
         <hr>
         <!-- Preview Image -->
-        <img class="img-fluid rounded" src="{{ $post->image }}" alt="">
+        <img class="img-fluid rounded" src="{{ $post->image_url }}" alt="{{ $post->name }}">
         <hr>
         <!-- Post Content -->
         <span v-pre>
