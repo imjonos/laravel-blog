@@ -51,7 +51,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -64,6 +64,14 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'webdav' => [
+            'driver' => 'webdav',
+            'baseUri' => env('WEBDAV_SERVER', ''),
+            'userName' => env('WEBDAV_USER', ''),
+            'password' => env('WEBDAV_PASSWORD', ''),
+            'pathPrefix' => env('WEBDAV_PATH', '/backups'), // optional
+            'authType' => 1,
+        ]
     ],
 
 ];
