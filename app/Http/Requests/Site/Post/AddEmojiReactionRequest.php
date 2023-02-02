@@ -1,9 +1,4 @@
 <?php
-/**
- * CodersStudio 2019
- * https://coders.studio
- * info@coders.studio
- */
 
 namespace App\Http\Requests\Site\Post;
 
@@ -29,7 +24,7 @@ final class AddEmojiReactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'emoji_id' => 'required|integer'
+            'emoji_id' => 'required|integer|exists:emojis,id'
         ];
     }
 }
