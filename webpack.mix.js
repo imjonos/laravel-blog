@@ -21,7 +21,10 @@ mix.webpackConfig({
     }
 });
 
-mix.vue({version: 2}).js('resources/js/app.js', 'public/js')
+mix.vue({version: 2})
+    .js('resources/js/blog.js', 'public/js')
+    .js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/blog.scss', 'public/css')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps()
     .webpackConfig({devtool: 'source-map'});

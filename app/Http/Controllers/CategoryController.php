@@ -7,17 +7,20 @@ use App\Services\PostService;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
+use Nos\EmojiReaction\Services\EmojiService;
 
 final class CategoryController extends Controller
 {
 
     private CategoryService $categoryService;
     private PostService $postService;
+    private EmojiService $emojiService;
 
-    public function __construct(CategoryService $categoryService, PostService $postService)
+    public function __construct(CategoryService $categoryService, EmojiService $emojiService, PostService $postService)
     {
         $this->categoryService = $categoryService;
         $this->postService = $postService;
+        $this->emojiService = $emojiService;
     }
 
     /**
@@ -37,7 +40,8 @@ final class CategoryController extends Controller
 
         return view('site.categories.show', [
             'posts' => $posts,
-            'category' => $category
+            'category' => $category,
+            'emojis' => $this->emojiService->all()
         ]);
     }
 }

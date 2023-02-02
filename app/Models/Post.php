@@ -9,12 +9,15 @@ namespace App\Models;
 
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Nos\CRUD\Traits\Crudable;
+use Nos\EmojiReaction\Interfaces\Models\EmojiReactionInterface;
+use Nos\EmojiReaction\Traits\HasEmojiReactionTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
@@ -34,15 +37,18 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @property string $created_at
  * @property string $updated_at
  *
+ * @property Collection $reactionStatistics
+ *
  * @method Builder ofSlug(string $slug)
  * @method Builder publish()
  */
-final class Post extends Model implements HasMedia
+final class Post extends Model implements HasMedia, EmojiReactionInterface
 {
     use Crudable;
     use Notifiable;
     use HasFactory;
     use HasMediaTrait;
+    use HasEmojiReactionTrait;
 
     /**
      * Columns available for sorting

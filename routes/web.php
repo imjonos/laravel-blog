@@ -22,6 +22,13 @@ Route::pattern('category', '[0-9]+');
 Route::pattern('slug', '[A-z0-9_-]+');
 Route::get('/', [\App\Http\Controllers\PostController::class, 'index'])->name('site.posts.index');
 Route::get('/posts/{slug}', [\App\Http\Controllers\PostController::class, 'show'])->name('site.posts.show');
+Route::post('/posts/{post}/emoji-reactions', [\App\Http\Controllers\PostController::class, 'addEmojiReaction'])->name(
+    'site.posts.add-emoji-reaction'
+);
+Route::get('/posts/{post}/emoji-reactions', [\App\Http\Controllers\PostController::class, 'getEmojiReactionStatistic']
+)->name(
+    'site.posts.get-emoji-reaction-statistic'
+);
 Route::get('/categories/{slug}', [\App\Http\Controllers\CategoryController::class, 'show'])->name(
     'site.categories.show'
 );
