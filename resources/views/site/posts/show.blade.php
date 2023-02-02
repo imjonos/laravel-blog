@@ -28,6 +28,11 @@
             {!! $post->detail_text !!}
         </span>
         <hr>
+        <emoji-reaction
+            :default-statistics="{{ getEmojiReactionStatistics($post) }}"
+            :post-id="{{ $post->id }}"
+            :emojis="{{ $emojis }}"></emoji-reaction>
+
         @if(Session::has('message'))
             <p class="alert alert-primary">{{ Session::get('message') }}</p>
         @endif

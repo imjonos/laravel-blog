@@ -1,6 +1,6 @@
 <!-- Sidebar Widgets Column -->
 
-<div class="col-md-4">
+<div class="col-md-12 col-xl-4">
     <br>
     <!-- Search Widget -->
     <div class="card my-4">
@@ -28,7 +28,7 @@
         <h5 class="card-header">{{ trans('posts.categories')}}</h5>
         <div class="card-body pt-0">
             @foreach($categories AS $category)
-                <a href="{{ route("site.categories.show", ['slug' => $category->slug]) }}">
+                <a class="category-link" href="{{ route("site.categories.show", ['slug' => $category->slug]) }}">
                             <span class="badge bg-success fs-6">
                                 {{ $category->name }}
                             </span>
