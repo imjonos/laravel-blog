@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests\Site\Post\AddEmojiReactionRequest;
 use App\Http\Requests\Site\Post\IndexRequest;
 use App\Http\Requests\Site\Post\ShowRequest;
@@ -89,8 +88,11 @@ final class PostController extends Controller
      */
     public function addEmojiReaction(AddEmojiReactionRequest $request, Post $post): JsonResponse
     {
-        DB::transaction(function () use ($post, $request) {
-            $this->reactionService->addReaction($post, $request->get('emoji_id'));
+        $emoji = $this->emojiService->find($request->get('emoji_id'));
+        abort_if(!$emoji, 400);
+
+        DB::transaction(function () use ($post, $request, $emoji) {
+            $this->reactionService->addReaction($post, $emoji);
         });
 
         return response()->json();

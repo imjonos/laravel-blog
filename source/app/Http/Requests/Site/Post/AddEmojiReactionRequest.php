@@ -29,7 +29,7 @@ final class AddEmojiReactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'emoji_id' => 'required|integer'
+            'emoji_id' => 'required|integer|exists:emojis,id'
         ];
     }
 }
